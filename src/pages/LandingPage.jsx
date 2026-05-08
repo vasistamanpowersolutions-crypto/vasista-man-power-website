@@ -1,13 +1,13 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { 
-  Users, Briefcase, ShieldCheck, Headphones, 
-  ChevronRight, Play, LayoutDashboard, 
+import {
+  Users, Briefcase, ShieldCheck, Headphones,
+  ChevronRight, Play, LayoutDashboard,
   TrendingUp, Activity, UserPlus, Building2
 } from 'lucide-react';
 import Logo from '../components/Logo';
-import heroImg from '../assets/hero-image.png';
+import heroImg from '../assets/hero-new.png';
 import '../css/LandingPage.css';
 
 const LandingPage = () => {
@@ -21,21 +21,21 @@ const LandingPage = () => {
   ];
 
   const features = [
-    { 
-      title: 'Direct Hiring', 
-      desc: 'Connect directly with verified and skilled candidates.', 
+    {
+      title: 'Direct Hiring',
+      desc: 'Connect directly with verified and skilled candidates.',
       icon: Briefcase,
       color: '#E8771A'
     },
-    { 
-      title: 'Verified Profiles', 
-      desc: 'All candidates are background checked and verified.', 
+    {
+      title: 'Verified Profiles',
+      desc: 'All candidates are background checked and verified.',
       icon: Users,
       color: '#002D5B'
     },
-    { 
-      title: 'Secure Platform', 
-      desc: 'Your data security and privacy is our top priority.', 
+    {
+      title: 'Secure Platform',
+      desc: 'Your data security and privacy is our top priority.',
       icon: ShieldCheck,
       color: '#E8771A'
     }
@@ -45,14 +45,6 @@ const LandingPage = () => {
     <div className="landing-page">
       <nav className="navbar">
         <Logo className="h-12" />
-        <div className="nav-links">
-          <a href="#" className="nav-link active">Home</a>
-          <a href="#" className="nav-link">Jobs</a>
-          <a href="#" className="nav-link">Candidates</a>
-          <a href="#" className="nav-link">Clients</a>
-          <a href="#" className="nav-link">About Us</a>
-          <a href="#" className="nav-link">Contact</a>
-        </div>
         <div className="nav-auth">
           <button onClick={() => navigate('/login')} className="nav-login-btn">
             <UserPlus size={18} /> Login
@@ -64,7 +56,7 @@ const LandingPage = () => {
       </nav>
 
       <section className="hero-section">
-        <motion.div 
+        <motion.div
           className="hero-content"
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
@@ -74,7 +66,7 @@ const LandingPage = () => {
             <Users size={14} /> Welcome to Vasista
           </div>
           <h1 className="hero-title">
-            Find Your Next <br/>Professional <span>Opportunity</span>
+            Find Your Next <br />Professional <span>Opportunity</span>
           </h1>
           <p className="hero-subtitle">
             Connecting top talent with the best business owners across India. The right people. Right skills. Right solution.
@@ -87,20 +79,9 @@ const LandingPage = () => {
               Learn More <Play size={18} fill="currentColor" />
             </button>
           </div>
-          <div className="candidate-social">
-            <div className="avatar-group">
-              {[1,2,3,4].map(i => (
-                <div key={i} className="avatar"></div>
-              ))}
-              <div className="avatar avatar-count">10K+</div>
-            </div>
-            <div className="social-text">
-              <strong>10,000+</strong> Happy Candidates
-            </div>
-          </div>
         </motion.div>
 
-        <motion.div 
+        <motion.div
           className="hero-visual"
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -109,8 +90,8 @@ const LandingPage = () => {
           <div className="hero-main-img-wrapper">
             <div className="hero-bg-circle"></div>
             <img src={heroImg} alt="Professionals" className="hero-main-img" />
-            
-            <motion.div 
+
+            {/* <motion.div
               className="dashboard-card glass-card"
               animate={{ y: [0, -10, 0] }}
               transition={{ repeat: Infinity, duration: 4 }}
@@ -136,9 +117,9 @@ const LandingPage = () => {
                   <div style={{ fontSize: '0.625rem' }}>New candidate John Doe added successfully. <span style={{ color: '#94a3b8' }}>10 mins ago</span></div>
                 </div>
               </div>
-            </motion.div>
+            </motion.div> */}
 
-            <motion.div 
+            <motion.div
               className="trusted-badge"
               initial={{ x: 20 }}
               animate={{ x: 0 }}
@@ -151,54 +132,8 @@ const LandingPage = () => {
               </div>
             </motion.div>
           </div>
-        </motion.div>Section
+        </motion.div>
       </section>
-
-      <section className="stats-bar">
-        {stats.map((s, i) => (
-          <div key={i} className="stat-item">
-            <div className="stat-icon">
-              <s.icon size={28} />
-            </div>
-            <div className="stat-info">
-              <h3>{s.count}</h3>
-              <p>{s.label}</p>
-            </div>
-          </div>
-        ))}
-      </section>
-
-      <section className="features-section">
-        <h2 className="section-title">Why Choose <span>Vasista?</span></h2>
-        <div className="features-grid">
-          {features.map((f, i) => (
-            <div key={i} className="feature-card">
-              <div className="feature-icon" style={{ backgroundColor: f.color }}>
-                <f.icon size={24} />
-              </div>
-              <h3>{f.title}</h3>
-              <p>{f.desc}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section className="trusted-logos">
-        <p>Trusted by Leading Companies</p>
-        <div className="logos-strip">
-          {/* Using text representations or common icons for logos since we don't have all assets */}
-          <span style={{ fontWeight: 800, fontSize: '1.5rem', color: '#94a3b8' }}>TATA</span>
-          <span style={{ fontWeight: 800, fontSize: '1.5rem', color: '#94a3b8' }}>Reliance</span>
-          <span style={{ fontWeight: 800, fontSize: '1.5rem', color: '#94a3b8' }}>adani</span>
-          <span style={{ fontWeight: 800, fontSize: '1.5rem', color: '#94a3b8' }}>Infosys</span>
-          <span style={{ fontWeight: 800, fontSize: '1.5rem', color: '#94a3b8' }}>wipro</span>
-          <span style={{ fontWeight: 800, fontSize: '1.5rem', color: '#94a3b8' }}>HDFC BANK</span>
-        </div>
-      </section>
-
-      <footer className="main-footer">
-        &copy; {new Date().getFullYear()} Vasista Man Power Solution. All rights reserved.
-      </footer>
     </div>
   );
 };
