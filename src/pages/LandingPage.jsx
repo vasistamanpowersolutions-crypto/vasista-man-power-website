@@ -46,9 +46,9 @@ const LandingPage = () => {
       <nav className="navbar">
         <Logo className="h-12" />
         <div className="nav-auth">
-          <button onClick={() => navigate('/login')} className="nav-login-btn">
+          {/* <button onClick={() => navigate('/login')} className="nav-login-btn">
             <UserPlus size={18} /> Login
-          </button>
+          </button> */}
           <button onClick={() => navigate('/login')} className="nav-get-started">
             Get Started <ChevronRight size={18} />
           </button>
