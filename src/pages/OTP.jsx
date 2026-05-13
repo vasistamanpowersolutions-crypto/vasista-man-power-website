@@ -21,6 +21,11 @@ const OTP = () => {
   useEffect(() => {
     if (!phoneNumber) {
       navigate('/login');
+    } else {
+      // Auto-focus first input on mount
+      if (inputRefs.current[0]) {
+        inputRefs.current[0].focus();
+      }
     }
   }, [phoneNumber, navigate]);
 
@@ -93,7 +98,7 @@ const OTP = () => {
     }
   }, [timer]);
 
-  const handleChange = (index, value) => {
+  const handleChange = (index, value, e) => {
     // Only allow numbers
     if (!/^\d*$/.test(value)) return;
 
@@ -104,25 +109,22 @@ const OTP = () => {
     setOtp(newOtp);
 
     // Move focus forward if a digit was entered
-    if (char && index < 5) {
-      inputRefs.current[index + 1].focus();
+    if (char && e.target.nextElementSibling) {
+      e.target.nextElementSibling.focus();
     }
   };
 
   const handleKeyDown = (index, e) => {
     if (e.key === 'Backspace') {
-      if (!otp[index] && index > 0) {
-        // If current field is empty, move focus to previous and clear it
-        const newOtp = [...otp];
-        newOtp[index - 1] = '';
-        setOtp(newOtp);
-        inputRefs.current[index - 1].focus();
-      } else {
-        // If current field has a value, just clear it (handleChange will handle state)
-        // But we can also handle it here for snappier feel
-        const newOtp = [...otp];
+      const newOtp = [...otp];
+      if (otp[index]) {
         newOtp[index] = '';
         setOtp(newOtp);
+      } else if (e.target.previousElementSibling) {
+        // Already empty, move to previous and clear it
+        newOtp[index - 1] = '';
+        setOtp(newOtp);
+        e.target.previousElementSibling.focus();
       }
     }
   };
@@ -388,8 +390,9 @@ const OTP = () => {
               type="text"
               inputMode="numeric"
               maxLength={1}
+              autoFocus={index === 0}
               value={digit}
-              onChange={(e) => handleChange(index, e.target.value)}
+              onChange={(e) => handleChange(index, e.target.value, e)}
               onKeyDown={(e) => handleKeyDown(index, e)}
               onPaste={handlePaste}
               className="mobile-otp-box"
@@ -618,8 +621,9 @@ const OTP = () => {
                         type="text"
                         inputMode="numeric"
                         maxLength={1}
+                        autoFocus={index === 0}
                         value={digit}
-                        onChange={(e) => handleChange(index, e.target.value)}
+                        onChange={(e) => handleChange(index, e.target.value, e)}
                         onKeyDown={(e) => handleKeyDown(index, e)}
                         onPaste={handlePaste}
                         className="tablet-otp-input"
@@ -738,7 +742,7 @@ const OTP = () => {
               <div className="flex flex-col items-center">
                 <p className="text-[#6b7280] text-[16px] font-medium mb-2">Enter the 6 digit code sent to</p>
                 <div className="flex items-center gap-2 bg-[#f7f8fc] px-4 py-2 rounded-full">
-                  <span className="text-[#082b66] font-bold text-[16px]">+91 98765 43210</span>
+                  <span className="text-[#082b66] font-bold text-[16px]">{phoneNumber}</span>
                   <button onClick={() => navigate('/login')} className="edit-number-btn">
                     <Pencil />
                   </button>
@@ -753,8 +757,9 @@ const OTP = () => {
                     ref={el => inputRefs.current[index] = el}
                     type="text"
                     maxLength={1}
+                    autoFocus={index === 0}
                     value={digit}
-                    onChange={(e) => handleChange(index, e.target.value)}
+                    onChange={(e) => handleChange(index, e.target.value, e)}
                     onKeyDown={(e) => handleKeyDown(index, e)}
                     onPaste={handlePaste}
                     className="w-14 h-14 text-center text-[26px] font-semibold rounded-[12px] border-[1.5px] border-[#e5e7eb] focus:border-[#1d4ed8] focus:ring-4 focus:ring-[#1d4ed8]/5 outline-none transition-all"
