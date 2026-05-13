@@ -4,13 +4,19 @@ import teamFinal from '../assets/team-final.jpg';
 import logo from '../assets/logo.jpeg';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import usePWA from '../hooks/usePWA';
 
 
 const Home = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
+  const { isInstallable, installApp } = usePWA();
 
   const handleGetStarted = () => {
+    if (isInstallable) {
+      installApp();
+      return;
+    }
     if (user) {
       navigate('/profile');
     } else {
@@ -188,7 +194,7 @@ const Home = () => {
             onClick={handleGetStarted}
             className="mobile-cta-button transition-transform active:scale-[0.98]"
           >
-            Get Started <ArrowRight size={20} />
+            {isInstallable ? 'Install App' : 'Get Started'} <ArrowRight size={20} />
           </button>
 
           {/* 4. Feature Cards List */}
@@ -348,7 +354,7 @@ const Home = () => {
                  onClick={handleGetStarted}
                  className="h-[48px] px-8 bg-[#062B67] text-white rounded-full text-[15px] font-bold flex items-center justify-center shadow-lg transition-transform active:scale-95"
                >
-                 Get Started
+                 {isInstallable ? 'Install App' : 'Get Started'}
                </button>
             </div>
 
@@ -396,7 +402,7 @@ const Home = () => {
               onClick={handleGetStarted}
               className="bg-[#0B2C6D] text-white w-[240px] h-[52px] rounded-full font-bold text-[16px] flex items-center justify-center gap-2.5 shadow-[0_10px_24px_rgba(11,87,208,0.15)] hover:bg-[#093ec2] transition-all active:scale-[0.98]"
             >
-              Get Started <ArrowRight size={20} />
+              {isInstallable ? 'Install App' : 'Get Started'} <ArrowRight size={20} />
             </button>
           </div>
 
@@ -549,7 +555,7 @@ const Home = () => {
                   onClick={handleGetStarted}
                   className="bg-primary text-white px-12 py-4 rounded-full font-bold text-base flex items-center gap-2 hover:bg-primary-light transition-all shadow-[0_15px_30px_rgba(0,33,71,0.2)]"
                 >
-                  Get Started <ArrowRight size={22} />
+                  {isInstallable ? 'Install App' : 'Get Started'} <ArrowRight size={22} />
                 </button>
                 <p className="text-[12px] text-gray-400 mt-4 font-medium opacity-80">
                   Join us today and take the first step towards success.

@@ -10,6 +10,7 @@ import Profile from './pages/Profile';
 import CandidateOnboarding from './pages/CandidateOnboarding';
 import BusinessOnboarding from './pages/BusinessOnboarding';
 import { useAuth } from './context/AuthContext';
+import UpdatePrompt from './components/UpdatePrompt';
 
 const ProtectedRoute = ({ children }) => {
   const { user, loading } = useAuth();
@@ -92,6 +93,7 @@ const AppContent = () => {
         </Routes>
       </main>
 
+      <UpdatePrompt />
       {!hideLayout && !user && <Footer />}
     </>
   );

@@ -3,10 +3,12 @@ import { Link, useLocation } from 'react-router-dom';
 import logo from '../assets/logo.jpeg';
 import { LogOut } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import usePWA from '../hooks/usePWA';
 
 const MobileNavbar = () => {
   const { user, logout } = useAuth();
   const location = useLocation();
+  const { isInstallable, installApp } = usePWA();
 
   return (
     <div className="block md:hidden">
@@ -78,9 +80,15 @@ const MobileNavbar = () => {
             <LogOut size={16} /> Logout
           </button>
         ) : location.pathname === '/' ? (
-          <Link to="/login" className="mobile-get-started">
-            Get Started
-          </Link>
+          isInstallable ? (
+            <button onClick={installApp} className="mobile-get-started">
+              Install App
+            </button>
+          ) : (
+            <Link to="/login" className="mobile-get-started">
+              Get Started
+            </Link>
+          )
         ) : null}
       </nav>
     </div>

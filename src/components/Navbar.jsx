@@ -2,10 +2,12 @@ import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import logo from '../assets/logo.jpeg';
 import { useAuth } from '../context/AuthContext';
+import usePWA from '../hooks/usePWA';
 
 const Navbar = () => {
   const { user, logout } = useAuth();
   const location = useLocation();
+  const { isInstallable, installApp } = usePWA();
 
   return (
     <header className="hidden lg:flex navbar-container">
@@ -86,9 +88,15 @@ const Navbar = () => {
           Logout
         </button>
       ) : location.pathname === '/' ? (
-        <Link to="/login" className="desktop-cta-button">
-          Get Started
-        </Link>
+        isInstallable ? (
+          <button onClick={installApp} className="desktop-cta-button">
+            Install App
+          </button>
+        ) : (
+          <Link to="/login" className="desktop-cta-button">
+            Get Started
+          </Link>
+        )
       ) : null}
     </header>
   );

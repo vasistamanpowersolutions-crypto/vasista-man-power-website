@@ -53,12 +53,12 @@ const Login = () => {
 
       if (sendData.success) {
         // Navigate to OTP page with data
-        navigate('/otp', { 
-          state: { 
-            phoneNumber: fullPhone, 
+        navigate('/otp', {
+          state: {
+            phoneNumber: fullPhone,
             userType,
-            isNewUser: !checkData.exists 
-          } 
+            isNewUser: !checkData.exists
+          }
         });
       } else {
         setError(sendData.error || 'Failed to send OTP');
@@ -73,7 +73,7 @@ const Login = () => {
 
   return (
     <div className="min-h-screen bg-white md:bg-gray-50/50 flex items-center justify-center lg:items-start lg:justify-center md:p-8 lg:pt-5 font-outfit relative">
-      
+
       {/* ==================================================
           MOBILE VIEW ONLY (max-width: 768px)
           ================================================== */}
@@ -331,13 +331,13 @@ const Login = () => {
 
         {/* User Type Toggle */}
         <div className="mobile-toggle-wrapper">
-          <button 
+          <button
             onClick={() => setUserType('candidate')}
             className={`mobile-toggle-btn ${userType === 'candidate' ? 'active' : ''}`}
           >
             <User size={18} /> Candidate
           </button>
-          <button 
+          <button
             onClick={() => setUserType('business')}
             className={`mobile-toggle-btn ${userType === 'business' ? 'active' : ''}`}
           >
@@ -356,7 +356,7 @@ const Login = () => {
         <div>
           <h3 className="mobile-form-title">Login with Mobile Number</h3>
           <p className="mobile-form-desc">We will send you a 6 digit OTP</p>
-          
+
           <div className="mobile-input-group">
             <div className="mobile-country-wrapper">
               <select className="mobile-country-select">
@@ -367,9 +367,9 @@ const Login = () => {
                 <ChevronDown size={14} />
               </div>
             </div>
-            <input 
-              type="tel" 
-              placeholder="Enter mobile number" 
+            <input
+              type="tel"
+              placeholder="Enter mobile number"
               className="mobile-phone-input"
               value={phoneNumber}
               onChange={(e) => setPhoneNumber(e.target.value.replace(/\D/g, '').slice(0, 10))}
@@ -378,7 +378,7 @@ const Login = () => {
 
           {error && <p className="text-red-500 text-xs mb-3 font-medium">{error}</p>}
 
-          <button 
+          <button
             onClick={handleGetOTP}
             disabled={loading}
             className={`mobile-send-btn active:scale-[0.98] transition-transform ${loading ? 'opacity-70' : ''}`}
@@ -395,13 +395,13 @@ const Login = () => {
         </div>
 
         {/* Google Login */}
-        <button className="mobile-google-btn active:scale-[0.98] transition-transform">
+        {/* <button className="mobile-google-btn active:scale-[0.98] transition-transform">
           <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" className="w-5 h-5" />
           <div className="flex flex-col items-start">
             <span>Continue with Google</span>
             <span className="text-[10px] text-gray-400 font-medium">(Business Owner only)</span>
           </div>
-        </button>
+        </button> */}
 
         {/* Terms */}
         <p className="mobile-terms-text">
@@ -570,127 +570,127 @@ const Login = () => {
           <div className="tablet-master-card">
             {/* 1. Internal Tablet Navbar */}
             <div className="tablet-navbar">
-               <Link to="/" className="shrink-0">
-                 <img src={logo} alt="Logo" className="w-[160px] h-auto object-contain" />
-               </Link>
-               <div className="flex items-center gap-6">
-                 <Link to="/" className="text-[14px] font-bold text-[#0B2C6D]">Home</Link>
-                 <Link to="/login" className="text-[14px] font-bold text-[#F59E0B]">Login</Link>
-                 <Link to="/otp" className="text-[14px] font-bold text-[#0B2C6D]">OTP</Link>
-                 <Link to="/profile" className="text-[14px] font-bold text-[#0B2C6D]">Profile</Link>
-               </div>
-               <Link to="/login" className="h-[44px] px-6 bg-[#062B67] text-white rounded-full text-[14px] font-bold flex items-center justify-center">
-                 Get Started
-               </Link>
+              <Link to="/" className="shrink-0">
+                <img src={logo} alt="Logo" className="w-[160px] h-auto object-contain" />
+              </Link>
+              <div className="flex items-center gap-6">
+                <Link to="/" className="text-[14px] font-bold text-[#0B2C6D]">Home</Link>
+                <Link to="/login" className="text-[14px] font-bold text-[#F59E0B]">Login</Link>
+                <Link to="/otp" className="text-[14px] font-bold text-[#0B2C6D]">OTP</Link>
+                <Link to="/profile" className="text-[14px] font-bold text-[#0B2C6D]">Profile</Link>
+              </div>
+              <Link to="/login" className="h-[44px] px-6 bg-[#062B67] text-white rounded-full text-[14px] font-bold flex items-center justify-center">
+                Get Started
+              </Link>
             </div>
 
             {/* 2. Main Tablet Grid */}
             <div className="tablet-grid">
-               {/* Left: Branding & Hero (Redesigned to match reference) */}
-               <div className="tablet-left-hero">
-                  {/* Top-Right Decorative Dots */}
-                  <div className="absolute top-12 right-12 w-20 h-14 opacity-20" style={{ backgroundImage: 'radial-gradient(circle, #002147 2px, transparent 0)', backgroundSize: '12px 12px' }}></div>
-                  
-                  {/* Hero Image Section (Moved to Top) */}
-                  <div className="relative z-10 w-full flex justify-center mb-10 pt-4">
-                    <img 
-                      src={teamImage} 
-                      alt="Team" 
-                      className="w-full max-w-[360px] h-auto object-contain" 
+              {/* Left: Branding & Hero (Redesigned to match reference) */}
+              <div className="tablet-left-hero">
+                {/* Top-Right Decorative Dots */}
+                <div className="absolute top-12 right-12 w-20 h-14 opacity-20" style={{ backgroundImage: 'radial-gradient(circle, #002147 2px, transparent 0)', backgroundSize: '12px 12px' }}></div>
+
+                {/* Hero Image Section (Moved to Top) */}
+                <div className="relative z-10 w-full flex justify-center mb-10 pt-4">
+                  <img
+                    src={teamImage}
+                    alt="Team"
+                    className="w-full max-w-[360px] h-auto object-contain"
+                  />
+                </div>
+
+                {/* Text Section */}
+                <div className="relative z-10">
+                  <h1 className="tablet-heading">Welcome Back! <br /> Glad to have <br /> you here.</h1>
+                  <div className="w-14 h-[4px] bg-[#F59E0B] rounded-full mb-8"></div>
+                  <p className="tablet-subheading">
+                    Login to your account and explore opportunities that grow careers and businesses.
+                  </p>
+                </div>
+
+                {/* Bottom Decorative Patterns */}
+                <div className="absolute bottom-32 left-12 w-14 h-14 opacity-15" style={{ backgroundImage: 'radial-gradient(circle, #F59E0B 2px, transparent 0)', backgroundSize: '12px 12px' }}></div>
+                <div className="absolute bottom-16 left-12 w-24 h-10 opacity-15" style={{ backgroundImage: 'radial-gradient(circle, #002147 2px, transparent 0)', backgroundSize: '12px 12px' }}></div>
+                <div className="absolute bottom-24 right-12 w-16 h-16 opacity-15" style={{ backgroundImage: 'radial-gradient(circle, #002147 2px, transparent 0)', backgroundSize: '12px 12px' }}></div>
+              </div>
+
+              {/* Right: Form Section */}
+              <div className="tablet-right-form">
+                <div className="text-center mb-10">
+                  <h2 className="tablet-form-title">Login to Continue</h2>
+                  <p className="tablet-form-subtitle">Access your account to continue</p>
+                </div>
+
+                {/* User Type Toggle */}
+                <div className="bg-[#fcfdfe] p-1.5 rounded-xl flex mb-8 border border-[#f1f3f7] shadow-sm">
+                  <button
+                    onClick={() => setUserType('candidate')}
+                    className={`flex-1 py-3 rounded-lg font-bold text-[15px] flex items-center justify-center gap-2.5 transition-all ${userType === 'candidate' ? 'bg-[#0a46d8] text-white shadow-lg' : 'text-[#6b7280]'}`}
+                  >
+                    <User size={16} /> Candidate
+                  </button>
+                  <button
+                    onClick={() => setUserType('business')}
+                    className={`flex-1 py-3 rounded-lg font-bold text-[15px] flex items-center justify-center gap-2.5 transition-all ${userType === 'business' ? 'bg-[#0a46d8] text-white shadow-lg' : 'text-[#6b7280]'}`}
+                  >
+                    <Briefcase size={16} /> Business Owner
+                  </button>
+                </div>
+
+                {/* Form */}
+                <div className="space-y-5">
+                  <div className="flex gap-4">
+                    <div className="relative w-24">
+                      <select className="tablet-input pr-10 appearance-none cursor-pointer text-[14px]">
+                        <option>+91</option>
+                        <option>+1</option>
+                      </select>
+                      <ChevronDown size={14} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400" />
+                    </div>
+                    <input
+                      type="tel"
+                      placeholder="Enter mobile number"
+                      className="tablet-input flex-1 text-[14px] placeholder:font-normal placeholder:text-gray-400"
+                      value={phoneNumber}
+                      onChange={(e) => setPhoneNumber(e.target.value.replace(/\D/g, '').slice(0, 10))}
                     />
                   </div>
 
-                  {/* Text Section */}
-                  <div className="relative z-10">
-                    <h1 className="tablet-heading">Welcome Back! <br /> Glad to have <br /> you here.</h1>
-                    <div className="w-14 h-[4px] bg-[#F59E0B] rounded-full mb-8"></div>
-                    <p className="tablet-subheading">
-                      Login to your account and explore opportunities that grow careers and businesses.
-                    </p>
-                  </div>
+                  {error && <p className="text-red-500 text-sm font-medium">{error}</p>}
 
-                  {/* Bottom Decorative Patterns */}
-                  <div className="absolute bottom-32 left-12 w-14 h-14 opacity-15" style={{ backgroundImage: 'radial-gradient(circle, #F59E0B 2px, transparent 0)', backgroundSize: '12px 12px' }}></div>
-                  <div className="absolute bottom-16 left-12 w-24 h-10 opacity-15" style={{ backgroundImage: 'radial-gradient(circle, #002147 2px, transparent 0)', backgroundSize: '12px 12px' }}></div>
-                  <div className="absolute bottom-24 right-12 w-16 h-16 opacity-15" style={{ backgroundImage: 'radial-gradient(circle, #002147 2px, transparent 0)', backgroundSize: '12px 12px' }}></div>
-               </div>
-
-               {/* Right: Form Section */}
-               <div className="tablet-right-form">
-                  <div className="text-center mb-10">
-                    <h2 className="tablet-form-title">Login to Continue</h2>
-                    <p className="tablet-form-subtitle">Access your account to continue</p>
-                  </div>
-
-                  {/* User Type Toggle */}
-                  <div className="bg-[#fcfdfe] p-1.5 rounded-xl flex mb-8 border border-[#f1f3f7] shadow-sm">
-                    <button 
-                      onClick={() => setUserType('candidate')}
-                      className={`flex-1 py-3 rounded-lg font-bold text-[15px] flex items-center justify-center gap-2.5 transition-all ${userType === 'candidate' ? 'bg-[#0a46d8] text-white shadow-lg' : 'text-[#6b7280]'}`}
-                    >
-                      <User size={16} /> Candidate
-                    </button>
-                    <button 
-                      onClick={() => setUserType('business')}
-                      className={`flex-1 py-3 rounded-lg font-bold text-[15px] flex items-center justify-center gap-2.5 transition-all ${userType === 'business' ? 'bg-[#0a46d8] text-white shadow-lg' : 'text-[#6b7280]'}`}
-                    >
-                      <Briefcase size={16} /> Business Owner
-                    </button>
-                  </div>
-
-                  {/* Form */}
-                  <div className="space-y-5">
-                    <div className="flex gap-4">
-                      <div className="relative w-24">
-                        <select className="tablet-input pr-10 appearance-none cursor-pointer text-[14px]">
-                          <option>+91</option>
-                          <option>+1</option>
-                        </select>
-                        <ChevronDown size={14} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400" />
-                      </div>
-                      <input 
-                        type="tel" 
-                        placeholder="Enter mobile number" 
-                        className="tablet-input flex-1 text-[14px] placeholder:font-normal placeholder:text-gray-400" 
-                        value={phoneNumber}
-                        onChange={(e) => setPhoneNumber(e.target.value.replace(/\D/g, '').slice(0, 10))}
-                      />
-                    </div>
-
-                    {error && <p className="text-red-500 text-sm font-medium">{error}</p>}
-
-                    <button 
-                      onClick={handleGetOTP} 
-                      disabled={loading}
-                      className={`tablet-btn active:scale-[0.97] ${loading ? 'opacity-70' : ''}`}
-                    >
-                      {loading ? 'Sending...' : 'Send OTP'} <ArrowRight size={20} />
-                    </button>
-                  </div>
-
-                  <div className="flex items-center gap-5 my-10">
-                    <div className="h-px flex-1 bg-gray-100"></div>
-                    <span className="text-[13px] text-gray-400 font-bold uppercase tracking-wider">or</span>
-                    <div className="h-px flex-1 bg-gray-100"></div>
-                  </div>
-
-                  <button className="tablet-google-btn active:scale-[0.97] transition-transform">
-                    <div className="flex items-center gap-3.5">
-                      <svg className="w-6 h-6" viewBox="0 0 24 24">
-                        <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
-                        <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
-                        <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
-                        <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1c-4.3 0-8.01 2.53-9.82 6.18l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
-                      </svg>
-                      <span className="font-bold text-[#374151] text-[16px]">Continue with Google</span>
-                    </div>
-                    <span className="text-[11px] text-gray-400 font-bold uppercase tracking-widest mt-1">(Business Owner Only)</span>
+                  <button
+                    onClick={handleGetOTP}
+                    disabled={loading}
+                    className={`tablet-btn active:scale-[0.97] ${loading ? 'opacity-70' : ''}`}
+                  >
+                    {loading ? 'Sending...' : 'Send OTP'} <ArrowRight size={20} />
                   </button>
+                </div>
 
-                  <p className="text-center mt-10 text-[13px] text-gray-400 font-medium">
-                    By continuing, you agree to our <a href="#" className="font-bold text-[#062b66] hover:underline">Terms & Conditions</a>
-                  </p>
-               </div>
+                <div className="flex items-center gap-5 my-10">
+                  <div className="h-px flex-1 bg-gray-100"></div>
+                  <span className="text-[13px] text-gray-400 font-bold uppercase tracking-wider">or</span>
+                  <div className="h-px flex-1 bg-gray-100"></div>
+                </div>
+
+                <button className="tablet-google-btn active:scale-[0.97] transition-transform">
+                  <div className="flex items-center gap-3.5">
+                    <svg className="w-6 h-6" viewBox="0 0 24 24">
+                      <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4" />
+                      <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853" />
+                      <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05" />
+                      <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1c-4.3 0-8.01 2.53-9.82 6.18l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335" />
+                    </svg>
+                    <span className="font-bold text-[#374151] text-[16px]">Continue with Google</span>
+                  </div>
+                  <span className="text-[11px] text-gray-400 font-bold uppercase tracking-widest mt-1">(Business Owner Only)</span>
+                </button>
+
+                <p className="text-center mt-10 text-[13px] text-gray-400 font-medium">
+                  By continuing, you agree to our <a href="#" className="font-bold text-[#062b66] hover:underline">Terms & Conditions</a>
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -701,10 +701,10 @@ const Login = () => {
           ================================================== */}
       {/* Main Container */}
       <div className="hidden lg:flex w-full max-w-6xl bg-white rounded-[32px] shadow-[0_20px_60px_rgba(0,0,0,0.06)] border border-gray-100 overflow-hidden flex-col md:flex-row min-h-[780px]">
-        
+
         {/* Left Section: Branding & Image (Rebuilt for Pixel-Perfect Accuracy) */}
         <div className="w-full md:w-[42%] bg-[#f4f8fd] relative flex flex-col overflow-hidden">
-          
+
           {/* Decorative Top-Right Dot Pattern */}
           <div className="absolute top-10 right-10 w-20 h-10 opacity-20 z-0" style={{ backgroundImage: 'radial-gradient(circle, #002147 2px, transparent 0)', backgroundSize: '12px 12px' }}></div>
 
@@ -719,7 +719,7 @@ const Login = () => {
               </h1>
               <div className="w-12 h-[3px] bg-secondary rounded-full mt-4"></div>
             </div>
-            
+
             {/* Description Section */}
             <p className="text-gray-500 text-[15px] font-medium leading-[1.6] max-w-[280px]">
               Login to your account and explore opportunities that grow careers and businesses.
@@ -730,7 +730,7 @@ const Login = () => {
           <div className="absolute inset-0 flex flex-col items-center justify-end pointer-events-none">
             {/* 1. Large Soft Abstract Blob */}
             <div className="absolute top-[40%] left-1/2 -translate-x-1/2 w-[120%] h-[60%] bg-[#eef5fd] rounded-[100px] rotate-[-5deg] blur-[20px] opacity-80"></div>
-            
+
             {/* 2. City Skyline Silhouette */}
             <div className="absolute bottom-[28%] left-0 w-full opacity-[0.03] px-10">
               <svg viewBox="0 0 800 200" className="w-full h-auto fill-primary">
@@ -745,9 +745,9 @@ const Login = () => {
 
           {/* People Image - Positioned in front of the layered background */}
           <div className="mt-auto relative z-10 flex justify-center w-full px-4">
-            <img 
-              src={teamImage} 
-              alt="Team" 
+            <img
+              src={teamImage}
+              alt="Team"
               className="w-full max-w-[420px] h-auto relative top-10"
             />
           </div>
@@ -778,7 +778,7 @@ const Login = () => {
 
         {/* Right Section: Login Form (Pixel-Perfect Design) */}
         <div className="w-full md:w-[58%] px-10 md:px-20 py-12 flex flex-col justify-center relative bg-white rounded-r-[32px]">
-          
+
           {/* Header Section */}
           <div className="text-center mb-8">
             <h2 className="text-[22px] font-bold text-[#062b66] mb-1 tracking-tight">Login to Continue</h2>
@@ -787,14 +787,14 @@ const Login = () => {
 
           {/* User Type Selector - Refined Tabs */}
           <div className="bg-[#fcfdfe] p-[3px] rounded-lg flex mb-7 border border-[#f1f3f7] shadow-[0_2px_8px_rgba(0,0,0,0.03)]">
-            <button 
+            <button
               onClick={() => setUserType('candidate')}
               className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-md font-semibold text-[13px] transition-all duration-300 ${userType === 'candidate' ? 'bg-[#0a46d8] text-white shadow-[0_4px_12px_rgba(10,70,216,0.2)]' : 'text-[#6b7280] bg-transparent'}`}
             >
               <User size={15} />
               Candidate
             </button>
-            <button 
+            <button
               onClick={() => setUserType('business')}
               className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-md font-semibold text-[13px] transition-all duration-300 ${userType === 'business' ? 'bg-[#0a46d8] text-white shadow-[0_4px_12px_rgba(10,70,216,0.2)]' : 'text-[#6b7280] bg-transparent'}`}
             >
@@ -814,7 +814,7 @@ const Login = () => {
           <div className="mb-7">
             <h3 className="text-[14px] font-bold text-[#062b66] mb-0.5">Login with Mobile Number</h3>
             <p className="text-[#9ca3af] text-[11px] font-medium mb-4">We will send you a 6 digit OTP</p>
-            
+
             <div className="flex gap-3 mb-4">
               <div className="relative group">
                 <select className="appearance-none bg-white border border-[#e5e7eb] px-4 h-[44px] rounded-lg font-semibold text-[#062b66] text-[13px] focus:outline-none focus:border-[#0a46d8]/30 transition-all shadow-[0_1px_2px_rgba(0,0,0,0.02)] min-w-[72px] cursor-pointer">
@@ -822,12 +822,12 @@ const Login = () => {
                   <option>+1</option>
                 </select>
                 <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-[#9ca3af]">
-                  <svg width="8" height="5" viewBox="0 0 12 8" fill="none"><path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                  <svg width="8" height="5" viewBox="0 0 12 8" fill="none"><path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
                 </div>
               </div>
-              <input 
-                type="tel" 
-                placeholder="Enter mobile number" 
+              <input
+                type="tel"
+                placeholder="Enter mobile number"
                 className="flex-grow bg-white border border-[#e5e7eb] px-4 h-[44px] rounded-lg font-semibold text-[#062b66] text-[13px] focus:outline-none focus:border-[#0a46d8]/30 transition-all shadow-[0_1px_2px_rgba(0,0,0,0.02)] placeholder:text-[#d1d5db] placeholder:font-normal"
                 value={phoneNumber}
                 onChange={(e) => setPhoneNumber(e.target.value.replace(/\D/g, '').slice(0, 10))}
@@ -836,7 +836,7 @@ const Login = () => {
 
             {error && <p className="text-red-500 text-xs mb-3 font-medium">{error}</p>}
 
-            <button 
+            <button
               onClick={handleGetOTP}
               disabled={loading}
               className={`w-full bg-[#0a46d8] text-white h-[46px] rounded-lg font-semibold text-[14px] flex items-center justify-center gap-2 hover:bg-[#093ec2] transition-all shadow-[0_4px_12px_rgba(10,70,216,0.15)] ${loading ? 'opacity-70' : ''}`}
@@ -856,10 +856,10 @@ const Login = () => {
           <button className="w-full bg-white border border-[#e5e7eb] h-[64px] rounded-lg flex flex-col items-center justify-center transition-all hover:bg-gray-50 shadow-[0_2px_6px_rgba(0,0,0,0.02)]">
             <div className="flex items-center gap-3">
               <svg className="w-[18px] h-[18px]" viewBox="0 0 24 24">
-                <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
-                <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
-                <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
-                <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1c-4.3 0-8.01 2.53-9.82 6.18l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+                <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4" />
+                <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853" />
+                <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05" />
+                <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1c-4.3 0-8.01 2.53-9.82 6.18l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335" />
               </svg>
               <span className="font-bold text-[#374151] text-[14px]">Continue with Google</span>
             </div>
