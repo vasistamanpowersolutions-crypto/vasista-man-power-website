@@ -27,6 +27,13 @@ const Login = () => {
 
       // 1. Check if number exists and its role
       const checkResponse = await fetch(`${import.meta.env.VITE_API_URL}/auth/check-role/${encodeURIComponent(fullPhone)}`);
+      
+      if (!checkResponse.ok) {
+        const errorText = await checkResponse.text();
+        console.error('API Error Response:', errorText);
+        throw new Error(`Server returned ${checkResponse.status}. Please check your API URL configuration.`);
+      }
+
       const checkData = await checkResponse.json();
 
       if (checkData.success && checkData.exists) {
@@ -49,6 +56,11 @@ const Login = () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ phoneNumber: fullPhone })
       });
+
+      if (!sendResponse.ok) {
+        throw new Error(`Failed to send OTP (Status: ${sendResponse.status})`);
+      }
+
       const sendData = await sendResponse.json();
 
       if (sendData.success) {

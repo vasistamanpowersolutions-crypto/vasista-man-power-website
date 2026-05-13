@@ -9,8 +9,15 @@
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .profile-header-card {
@@ -106,10 +113,25 @@
   gap: 6px;
 }
 
-.badge-kyc-verified { background: #e6fff1; color: #05cd99; }
-.badge-kyc-pending { background: #fff7e6; color: #f29727; }
-.badge-status-available { background: #f0f4ff; color: #002147; }
-.badge-status-allotted { background: #eef2ff; color: #4f46e5; }
+.badge-kyc-verified {
+  background: #e6fff1;
+  color: #05cd99;
+}
+
+.badge-kyc-pending {
+  background: #fff7e6;
+  color: #f29727;
+}
+
+.badge-status-available {
+  background: #f0f4ff;
+  color: #002147;
+}
+
+.badge-status-allotted {
+  background: #eef2ff;
+  color: #4f46e5;
+}
 
 .logout-button {
   padding: 12px 24px;
@@ -306,8 +328,15 @@
   text-transform: uppercase;
 }
 
-.allotment-status-pill.active { background: #e6fff1; color: #05cd99; }
-.allotment-status-pill.completed { background: #f1f5f9; color: #94a3b8; }
+.allotment-status-pill.active {
+  background: #e6fff1;
+  color: #05cd99;
+}
+
+.allotment-status-pill.completed {
+  background: #f1f5f9;
+  color: #94a3b8;
+}
 
 .allotment-details-footer {
   margin-top: 16px;
@@ -464,32 +493,90 @@
   .info-tab-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .profile-header-card {
     flex-direction: column;
     text-align: center;
     padding: 24px;
   }
-  
+
   .header-left-content {
     flex-direction: column;
   }
-  
+
   .profile-summary-text p {
     justify-content: center;
   }
-  
+
   .status-badges-container {
     justify-content: center;
   }
-  
+
   .info-data-row {
     grid-template-columns: 120px 1fr;
     gap: 8px;
   }
-  
+
   .profile-tabs-nav {
     overflow-x: auto;
     padding-bottom: 0;
   }
+
+  .desktop-only-tabs {
+    display: none !important;
+  }
+
+  .profile-page-container {
+    padding-bottom: 100px !important;
+  }
+
+  /* Bottom Nav */
+  .mobile-bottom-nav {
+    display: flex !important;
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    background: white !important;
+    box-shadow: 0 -10px 25px rgba(0, 0, 0, 0.08) !important;
+    padding: 12px 10px !important;
+    justify-content: space-around !important;
+    align-items: center !important;
+    z-index: 9999 !important;
+    border-top: 1px solid #f0f0f0 !important;
+    border-radius: 32px 32px 0 0 !important;
+    padding: 6px !important;
+  }
+
+  .mobile-nav-btn {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 4px !important;
+    background: transparent !important;
+    border: none !important;
+    color: #94a3b8 !important;
+    padding: 8px !important;
+    flex: 1 !important;
+    transition: all 0.3s ease !important;
+  }
+
+  .mobile-nav-btn span {
+    font-size: 11px !important;
+    font-weight: 700 !important;
+  }
+
+  .mobile-nav-btn.active {
+    color: #062B67 !important;
+    transform: translateY(-2px) !important;
+  }
+
+  .mobile-nav-btn.active svg {
+    color: #F4B400 !important;
+  }
+}
+
+/* Default state for Bottom Nav */
+.mobile-bottom-nav {
+  display: none;
 }

@@ -267,7 +267,7 @@ const Profile = () => {
         </button> */}
       </div>
 
-      <div className="profile-tabs-nav">
+      <div className="profile-tabs-nav desktop-only-tabs">
         <button
           className={`profile-tab-btn ${activeTab === 'info' ? 'active' : ''}`}
           onClick={() => setActiveTab('info')}
@@ -285,6 +285,31 @@ const Profile = () => {
           onClick={() => setActiveTab('documents')}
         >
           <FileText size={18} /> Documents
+        </button>
+      </div>
+
+      {/* MOBILE BOTTOM NAVIGATION BAR */}
+      <div className="mobile-bottom-nav">
+        <button
+          className={`mobile-nav-btn ${activeTab === 'info' ? 'active' : ''}`}
+          onClick={() => setActiveTab('info')}
+        >
+          <User size={24} />
+          <span>Info</span>
+        </button>
+        <button
+          className={`mobile-nav-btn ${activeTab === 'allotments' ? 'active' : ''}`}
+          onClick={() => setActiveTab('allotments')}
+        >
+          <Briefcase size={24} />
+          <span>Allotments</span>
+        </button>
+        <button
+          className={`mobile-nav-btn ${activeTab === 'documents' ? 'active' : ''}`}
+          onClick={() => setActiveTab('documents')}
+        >
+          <FileText size={24} />
+          <span>Documents</span>
         </button>
       </div>
 

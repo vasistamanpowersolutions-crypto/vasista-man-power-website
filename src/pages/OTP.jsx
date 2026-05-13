@@ -40,6 +40,11 @@ const OTP = () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ phoneNumber, otp: otpString })
       });
+
+      if (!response.ok) {
+        throw new Error(`OTP Verification failed (Status: ${response.status})`);
+      }
+
       const data = await response.json();
 
       if (data.success) {
@@ -52,9 +57,12 @@ const OTP = () => {
         
         // 1. Check if number exists and its role
         const checkResponse = await fetch(`${import.meta.env.VITE_API_URL}/auth/check-role/${encodeURIComponent(phoneNumber)}`);
-        const checkData = await checkResponse.json();
-        if (checkData.success && checkData.user) {
-          userData = { ...userData, ...checkData.user };
+        
+        if (checkResponse.ok) {
+          const checkData = await checkResponse.json();
+          if (checkData.success && checkData.user) {
+            userData = { ...userData, ...checkData.user };
+          }
         }
 
         console.log('OTP Verified. isNewUser:', isNewUser, 'userType:', userType);
@@ -86,21 +94,54 @@ const OTP = () => {
   }, [timer]);
 
   const handleChange = (index, value) => {
+    // Only allow numbers
     if (!/^\d*$/.test(value)) return;
 
     const newOtp = [...otp];
-    newOtp[index] = value.substring(value.length - 1);
+    // Take only the last character if multiple are entered
+    const char = value.substring(value.length - 1);
+    newOtp[index] = char;
     setOtp(newOtp);
 
-    if (value && index < 5) {
+    // Move focus forward if a digit was entered
+    if (char && index < 5) {
       inputRefs.current[index + 1].focus();
     }
   };
 
   const handleKeyDown = (index, e) => {
-    if (e.key === 'Backspace' && !otp[index] && index > 0) {
-      inputRefs.current[index - 1].focus();
+    if (e.key === 'Backspace') {
+      if (!otp[index] && index > 0) {
+        // If current field is empty, move focus to previous and clear it
+        const newOtp = [...otp];
+        newOtp[index - 1] = '';
+        setOtp(newOtp);
+        inputRefs.current[index - 1].focus();
+      } else {
+        // If current field has a value, just clear it (handleChange will handle state)
+        // But we can also handle it here for snappier feel
+        const newOtp = [...otp];
+        newOtp[index] = '';
+        setOtp(newOtp);
+      }
     }
+  };
+
+  const handlePaste = (e) => {
+    e.preventDefault();
+    const pasteData = e.clipboardData.getData('text').slice(0, 6);
+    if (!/^\d+$/.test(pasteData)) return;
+
+    const newOtp = [...otp];
+    const pasteArray = pasteData.split('');
+    pasteArray.forEach((char, index) => {
+      if (index < 6) newOtp[index] = char;
+    });
+    setOtp(newOtp);
+
+    // Focus the last filled input or the next empty one
+    const nextIndex = Math.min(pasteArray.length, 5);
+    inputRefs.current[nextIndex].focus();
   };
 
   const formatTime = (seconds) => {
@@ -350,6 +391,7 @@ const OTP = () => {
               value={digit}
               onChange={(e) => handleChange(index, e.target.value)}
               onKeyDown={(e) => handleKeyDown(index, e)}
+              onPaste={handlePaste}
               className="mobile-otp-box"
             />
           ))}
@@ -579,6 +621,7 @@ const OTP = () => {
                         value={digit}
                         onChange={(e) => handleChange(index, e.target.value)}
                         onKeyDown={(e) => handleKeyDown(index, e)}
+                        onPaste={handlePaste}
                         className="tablet-otp-input"
                       />
                     ))}
@@ -713,6 +756,7 @@ const OTP = () => {
                     value={digit}
                     onChange={(e) => handleChange(index, e.target.value)}
                     onKeyDown={(e) => handleKeyDown(index, e)}
+                    onPaste={handlePaste}
                     className="w-14 h-14 text-center text-[26px] font-semibold rounded-[12px] border-[1.5px] border-[#e5e7eb] focus:border-[#1d4ed8] focus:ring-4 focus:ring-[#1d4ed8]/5 outline-none transition-all"
                   />
                 ))}
