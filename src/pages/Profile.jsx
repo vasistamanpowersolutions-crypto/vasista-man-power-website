@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { 
-  User, 
-  MapPin, 
-  Phone, 
-  Mail, 
-  Briefcase, 
-  Shield, 
-  Calendar, 
-  FileText, 
-  CheckCircle2, 
-  Clock, 
-  ChevronRight, 
+import {
+  User,
+  MapPin,
+  Phone,
+  Mail,
+  Briefcase,
+  Shield,
+  Calendar,
+  FileText,
+  CheckCircle2,
+  Clock,
+  ChevronRight,
   LogOut,
   Building,
   GraduationCap,
@@ -208,16 +208,16 @@ const Profile = () => {
               )}
             </div>
             <div className="document-action-btns">
-              <button 
-                className="doc-action-btn" 
+              <button
+                className="doc-action-btn"
                 onClick={() => doc.url && window.open(doc.url, '_blank')}
                 disabled={!doc.url}
               >
                 <Eye size={14} /> View
               </button>
-              <a 
-                href={doc.url} 
-                download 
+              <a
+                href={doc.url}
+                download
                 className={`doc-action-btn ${!doc.url ? 'pointer-events-none opacity-50' : ''}`}
                 target="_blank"
                 rel="noreferrer"
@@ -262,26 +262,26 @@ const Profile = () => {
             </div>
           </div>
         </div>
-        <button onClick={logout} className="logout-button">
+        {/* <button onClick={logout} className="logout-button">
           <LogOut size={18} /> Logout
-        </button>
+        </button> */}
       </div>
 
       <div className="profile-tabs-nav">
-        <button 
-          className={`profile-tab-btn ${activeTab === 'info' ? 'active' : ''}`} 
+        <button
+          className={`profile-tab-btn ${activeTab === 'info' ? 'active' : ''}`}
           onClick={() => setActiveTab('info')}
         >
           <User size={18} /> Info
         </button>
-        <button 
-          className={`profile-tab-btn ${activeTab === 'allotments' ? 'active' : ''}`} 
+        <button
+          className={`profile-tab-btn ${activeTab === 'allotments' ? 'active' : ''}`}
           onClick={() => setActiveTab('allotments')}
         >
           <Briefcase size={18} /> Allotments
         </button>
-        <button 
-          className={`profile-tab-btn ${activeTab === 'documents' ? 'active' : ''}`} 
+        <button
+          className={`profile-tab-btn ${activeTab === 'documents' ? 'active' : ''}`}
           onClick={() => setActiveTab('documents')}
         >
           <FileText size={18} /> Documents
