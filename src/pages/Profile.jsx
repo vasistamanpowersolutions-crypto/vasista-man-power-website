@@ -45,7 +45,7 @@ const Profile = () => {
       try {
         const filterKey = user.role === 'candidate' ? 'candidateId' : 'businessId';
         const filterVal = user.id || user.candidateId || user.uid;
-        const response = await fetch(`http://localhost:3000/api/allotments/user-allotments?${filterKey}=${filterVal}`);
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/allotments/user-allotments?${filterKey}=${filterVal}`);
         const data = await response.json();
         setAllotments(data);
       } catch (error) {

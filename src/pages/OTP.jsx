@@ -35,7 +35,7 @@ const OTP = () => {
     setError('');
 
     try {
-      const response = await fetch('http://localhost:3000/api/auth/login/mobile/verify', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/auth/login/mobile/verify`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ phoneNumber, otp: otpString })
@@ -51,7 +51,7 @@ const OTP = () => {
         };
         
         // 1. Check if number exists and its role
-        const checkResponse = await fetch(`http://localhost:3000/api/auth/check-role/${encodeURIComponent(phoneNumber)}`);
+        const checkResponse = await fetch(`${import.meta.env.VITE_API_URL}/auth/check-role/${encodeURIComponent(phoneNumber)}`);
         const checkData = await checkResponse.json();
         if (checkData.success && checkData.user) {
           userData = { ...userData, ...checkData.user };

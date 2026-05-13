@@ -26,7 +26,7 @@ const Login = () => {
       const fullPhone = `+91${normalizedPhone}`;
 
       // 1. Check if number exists and its role
-      const checkResponse = await fetch(`http://localhost:3000/api/auth/check-role/${encodeURIComponent(fullPhone)}`);
+      const checkResponse = await fetch(`${import.meta.env.VITE_API_URL}/auth/check-role/${encodeURIComponent(fullPhone)}`);
       const checkData = await checkResponse.json();
 
       if (checkData.success && checkData.exists) {
@@ -44,7 +44,7 @@ const Login = () => {
       }
 
       // 2. Send OTP
-      const sendResponse = await fetch('http://localhost:3000/api/auth/login/mobile/send', {
+      const sendResponse = await fetch(`${import.meta.env.VITE_API_URL}/auth/login/mobile/send`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ phoneNumber: fullPhone })
