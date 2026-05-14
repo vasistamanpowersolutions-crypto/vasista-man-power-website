@@ -1,6 +1,6 @@
 import React from 'react';
 import { ArrowRight, Users, Building2, ShieldCheck, CheckCircle, Briefcase } from 'lucide-react';
-import teamFinal from '../assets/team-final.jpg';
+import teamFinal from '../assets/team-final.png';
 import logo from '../assets/logo.jpeg';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
@@ -25,7 +25,7 @@ const Home = () => {
   };
   return (
     <div className="min-h-screen bg-white font-outfit relative">
-      
+
       {/* ==================================================
           MOBILE VIEW ONLY (max-width: 768px)
           ================================================== */}
@@ -142,20 +142,20 @@ const Home = () => {
       `}</style>
 
       <div className="block md:hidden w-full bg-white relative">
-        
+
         {/* MOBILE CONTENT CONTAINER */}
         <div className="mobile-section-container w-full bg-white">
-          
+
           {/* 1. Hero Image Section */}
           <div className="mobile-hero-img-section w-full flex flex-col justify-center items-center relative pt-0">
             {/* Soft Blob Background */}
             <div className="absolute top-[20%] left-1/2 -translate-x-1/2 w-[110%] h-[90%] bg-[#F2F8FF] rounded-full blur-[40px] -z-10 opacity-70"></div>
-            
+
             <div className="relative w-full max-w-[320px]">
               {/* Main Image */}
-              <img 
-                src={teamFinal} 
-                alt="Vasista Team" 
+              <img
+                src={teamFinal}
+                alt="Vasista Team"
                 className="w-full h-auto object-contain relative z-10"
               />
 
@@ -178,10 +178,10 @@ const Home = () => {
             <p className="mobile-subtitle">
               Connecting Talent. Powering Businesses.
             </p>
-            
+
             {/* Yellow Divider Line */}
             <div className="mobile-divider"></div>
-            
+
             <p className="mobile-description">
               We bridge the gap between skilled professionals and growing businesses.
               Whether you are looking for the right opportunity or the right talent,
@@ -190,7 +190,7 @@ const Home = () => {
           </div>
 
           {/* 3. Get Started Button */}
-          <button 
+          <button
             onClick={handleGetStarted}
             className="mobile-cta-button transition-transform active:scale-[0.98]"
           >
@@ -334,149 +334,149 @@ const Home = () => {
           }
         `}</style>
 
-         <div className="tablet-master-wrapper">
+        <div className="tablet-master-wrapper">
           <div className="tablet-master-card">
-            
+
             {/* Tablet Navbar Inside Card */}
             <div className="tablet-navbar">
-               <Link to="/">
-                 <img src={logo} alt="Logo" className="w-[140px] object-contain" />
-               </Link>
-               
-               <div className="flex gap-5 absolute left-1/2 -translate-x-1/2">
-                 <Link to="/" className="text-[14px] font-bold text-[#F59E0B]">Home</Link>
-                 <Link to="/login" className="text-[14px] font-bold text-[#0B2C6D]">Login</Link>
-                 <Link to="/otp" className="text-[14px] font-bold text-[#0B2C6D]">OTP</Link>
-                 <Link to="/profile" className="text-[14px] font-bold text-[#0B2C6D]">Profile</Link>
-               </div>
+              <Link to="/">
+                <img src={logo} alt="Logo" className="w-[140px] object-contain" />
+              </Link>
 
-               <button 
-                 onClick={handleGetStarted}
-                 className="h-[48px] px-8 bg-[#062B67] text-white rounded-full text-[15px] font-bold flex items-center justify-center shadow-lg transition-transform active:scale-95"
-               >
-                 {isInstallable ? 'Install App' : 'Get Started'}
-               </button>
+              <div className="flex gap-5 absolute left-1/2 -translate-x-1/2">
+                <Link to="/" className="text-[14px] font-bold text-[#F59E0B]">Home</Link>
+                <Link to="/login" className="text-[14px] font-bold text-[#0B2C6D]">Login</Link>
+                <Link to="/otp" className="text-[14px] font-bold text-[#0B2C6D]">OTP</Link>
+                <Link to="/profile" className="text-[14px] font-bold text-[#0B2C6D]">Profile</Link>
+              </div>
+
+              <button
+                onClick={handleGetStarted}
+                className="h-[48px] px-8 bg-[#062B67] text-white rounded-full text-[15px] font-bold flex items-center justify-center shadow-lg transition-transform active:scale-95"
+              >
+                {isInstallable ? 'Install App' : 'Get Started'}
+              </button>
             </div>
 
             <div className="tablet-container">
-          {/* 1. Hero Image Section */}
-          <div className="tablet-hero-section">
-             {/* Soft Abstract Background */}
-             <div className="absolute top-[10%] left-1/2 -translate-x-1/2 w-[120%] h-[80%] bg-[#F2F8FF] rounded-full blur-[60px] -z-10 opacity-80"></div>
-             
-             {/* Decorative Dots Pattern */}
-             <div className="absolute top-10 left-8 w-20 h-10 opacity-30 z-0" style={{ backgroundImage: 'radial-gradient(circle, #002147 2px, transparent 0)', backgroundSize: '14px 14px' }}></div>
-             <div className="absolute top-16 left-1/2 -translate-x-1/2 w-28 h-12 opacity-20 z-0" style={{ backgroundImage: 'radial-gradient(circle, #FFB800 2px, transparent 0)', backgroundSize: '16px 16px' }}></div>
+              {/* 1. Hero Image Section */}
+              <div className="tablet-hero-section">
+                {/* Soft Abstract Background */}
+                <div className="absolute top-[10%] left-1/2 -translate-x-1/2 w-[120%] h-[80%] bg-[#F2F8FF] rounded-full blur-[60px] -z-10 opacity-80"></div>
 
-             <div className="relative w-full max-w-[400px] flex items-end">
-                <img src={teamFinal} alt="Vasista Team" className="w-[105%] max-none ml-[-2.5%] h-auto object-contain relative z-10 origin-bottom" />
-                
-                {/* Floating Icons */}
-                <div className="absolute top-[40%] -left-6 w-14 h-14 bg-white rounded-full flex items-center justify-center shadow-lg z-20 border border-gray-50/50">
-                  <Users className="text-[#0B57D0]" size={26} />
+                {/* Decorative Dots Pattern */}
+                <div className="absolute top-10 left-8 w-20 h-10 opacity-30 z-0" style={{ backgroundImage: 'radial-gradient(circle, #002147 2px, transparent 0)', backgroundSize: '14px 14px' }}></div>
+                <div className="absolute top-16 left-1/2 -translate-x-1/2 w-28 h-12 opacity-20 z-0" style={{ backgroundImage: 'radial-gradient(circle, #FFB800 2px, transparent 0)', backgroundSize: '16px 16px' }}></div>
+
+                <div className="relative w-full max-w-[400px] flex items-end">
+                  <img src={teamFinal} alt="Vasista Team" className="w-[105%] max-none ml-[-2.5%] h-auto object-contain relative z-10 origin-bottom" />
+
+                  {/* Floating Icons */}
+                  <div className="absolute top-[40%] -left-6 w-14 h-14 bg-white rounded-full flex items-center justify-center shadow-lg z-20 border border-gray-50/50">
+                    <Users className="text-[#0B57D0]" size={26} />
+                  </div>
+                  <div className="absolute top-[18%] -right-6 w-14 h-14 bg-white rounded-full flex items-center justify-center shadow-lg z-20 border border-gray-50/50">
+                    <Briefcase className="text-[#0B57D0]" size={26} />
+                  </div>
                 </div>
-                <div className="absolute top-[18%] -right-6 w-14 h-14 bg-white rounded-full flex items-center justify-center shadow-lg z-20 border border-gray-50/50">
-                  <Briefcase className="text-[#0B57D0]" size={26} />
+              </div>
+
+              {/* 2. Welcome Text Content */}
+              <div className="w-full max-w-full text-left px-4">
+                <h2 className="text-[18px] font-bold text-gray-800 mb-1.5">Welcome to</h2>
+                <h1 className="tablet-heading mb-4">Vasista Man Power Solutions</h1>
+
+                <div className="flex flex-col gap-1.5 mb-6">
+                  <p className="text-[18px] font-bold text-[#0B2C6D]">Connecting Talent. Powering Businesses.</p>
+                  <div className="w-12 h-1 bg-[#F4B400] rounded-full"></div>
                 </div>
-             </div>
-          </div>
 
-          {/* 2. Welcome Text Content */}
-          <div className="w-full max-w-full text-left px-4">
-            <h2 className="text-[18px] font-bold text-gray-800 mb-1.5">Welcome to</h2>
-            <h1 className="tablet-heading mb-4">Vasista Man Power Solutions</h1>
-            
-            <div className="flex flex-col gap-1.5 mb-6">
-              <p className="text-[18px] font-bold text-[#0B2C6D]">Connecting Talent. Powering Businesses.</p>
-              <div className="w-12 h-1 bg-[#F4B400] rounded-full"></div>
-            </div>
+                <p className="text-gray-500 text-[16px] leading-[1.65] max-w-[700px] mb-8 font-medium opacity-90">
+                  We bridge the gap between skilled professionals and growing businesses.
+                  Whether you are looking for the right opportunity or the right talent,
+                  we are here to help you succeed.
+                </p>
 
-            <p className="text-gray-500 text-[16px] leading-[1.65] max-w-[700px] mb-8 font-medium opacity-90">
-              We bridge the gap between skilled professionals and growing businesses.
-              Whether you are looking for the right opportunity or the right talent,
-              we are here to help you succeed.
-            </p>
+                {/* 3. CTA Button */}
+                <button
+                  onClick={handleGetStarted}
+                  className="bg-[#0B2C6D] text-white w-[240px] h-[52px] rounded-full font-bold text-[16px] flex items-center justify-center gap-2.5 shadow-[0_10px_24px_rgba(11,87,208,0.15)] hover:bg-[#093ec2] transition-all active:scale-[0.98]"
+                >
+                  {isInstallable ? 'Install App' : 'Get Started'} <ArrowRight size={20} />
+                </button>
+              </div>
 
-            {/* 3. CTA Button */}
-            <button 
-              onClick={handleGetStarted}
-              className="bg-[#0B2C6D] text-white w-[240px] h-[52px] rounded-full font-bold text-[16px] flex items-center justify-center gap-2.5 shadow-[0_10px_24px_rgba(11,87,208,0.15)] hover:bg-[#093ec2] transition-all active:scale-[0.98]"
-            >
-              {isInstallable ? 'Install App' : 'Get Started'} <ArrowRight size={20} />
-            </button>
-          </div>
-
-          <div className="w-full max-w-full flex flex-col gap-6 px-4">
-            <div className="tablet-card-layer">
-              <div className="tablet-feature-card">
-                <div className="w-16 h-16 bg-[#EEF5FF] rounded-2xl flex items-center justify-center text-[#0B57D0] shrink-0">
-                  <Users size={32} />
+              <div className="w-full max-w-full flex flex-col gap-6 px-4">
+                <div className="tablet-card-layer">
+                  <div className="tablet-feature-card">
+                    <div className="w-16 h-16 bg-[#EEF5FF] rounded-2xl flex items-center justify-center text-[#0B57D0] shrink-0">
+                      <Users size={32} />
+                    </div>
+                    <div>
+                      <h3 className="text-[20px] font-bold text-gray-900 mb-1">Find the Right Talent</h3>
+                      <p className="text-gray-500 text-[15px] font-medium leading-relaxed opacity-90">Access a wide pool of verified and skilled candidates across industries.</p>
+                    </div>
+                  </div>
                 </div>
-                <div>
-                  <h3 className="text-[20px] font-bold text-gray-900 mb-1">Find the Right Talent</h3>
-                  <p className="text-gray-500 text-[15px] font-medium leading-relaxed opacity-90">Access a wide pool of verified and skilled candidates across industries.</p>
+
+                <div className="tablet-card-layer">
+                  <div className="tablet-feature-card">
+                    <div className="w-16 h-16 bg-[#EEF5FF] rounded-2xl flex items-center justify-center text-[#0B57D0] shrink-0">
+                      <Building2 size={32} />
+                    </div>
+                    <div>
+                      <h3 className="text-[20px] font-bold text-gray-900 mb-1">Grow Your Business</h3>
+                      <p className="text-gray-500 text-[15px] font-medium leading-relaxed opacity-90">Reliable manpower solutions tailored to your business needs.</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="tablet-card-layer">
+                  <div className="tablet-feature-card">
+                    <div className="w-16 h-16 bg-[#EEF5FF] rounded-2xl flex items-center justify-center text-[#0B57D0] shrink-0">
+                      <ShieldCheck size={32} />
+                    </div>
+                    <div>
+                      <h3 className="text-[20px] font-bold text-gray-900 mb-1">Trusted & Reliable</h3>
+                      <p className="text-gray-500 text-[15px] font-medium leading-relaxed opacity-90">We ensure transparency, quality, and long-term partnerships.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* 5. Statistics Section */}
+              <div className="w-full px-4">
+                <div className="tablet-card-layer">
+                  <div className="tablet-stats-container">
+                    <div className="flex-1 flex flex-col items-center gap-2">
+                      <Users size={28} className="text-[#0B57D0]" />
+                      <h4 className="text-[32px] font-black text-[#0B2C6D] leading-none">10K+</h4>
+                      <p className="text-[12px] text-gray-400 font-bold uppercase tracking-widest mt-1">Candidates</p>
+                    </div>
+                    <div className="w-[1px] h-16 bg-gray-100/80"></div>
+                    <div className="flex-1 flex flex-col items-center gap-2">
+                      <Building2 size={28} className="text-[#0B57D0]" />
+                      <h4 className="text-[32px] font-black text-[#0B2C6D] leading-none">500+</h4>
+                      <p className="text-[12px] text-gray-400 font-bold uppercase tracking-widest mt-1">Businesses</p>
+                    </div>
+                    <div className="w-[1px] h-16 bg-gray-100/80"></div>
+                    <div className="flex-1 flex flex-col items-center gap-2">
+                      <CheckCircle size={28} className="text-[#0B57D0]" />
+                      <h4 className="text-[32px] font-black text-[#0B2C6D] leading-none">98%</h4>
+                      <p className="text-[12px] text-gray-400 font-bold uppercase tracking-widest mt-1">Satisfaction</p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
 
-            <div className="tablet-card-layer">
-              <div className="tablet-feature-card">
-                <div className="w-16 h-16 bg-[#EEF5FF] rounded-2xl flex items-center justify-center text-[#0B57D0] shrink-0">
-                  <Building2 size={32} />
-                </div>
-                <div>
-                  <h3 className="text-[20px] font-bold text-gray-900 mb-1">Grow Your Business</h3>
-                  <p className="text-gray-500 text-[15px] font-medium leading-relaxed opacity-90">Reliable manpower solutions tailored to your business needs.</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="tablet-card-layer">
-              <div className="tablet-feature-card">
-                <div className="w-16 h-16 bg-[#EEF5FF] rounded-2xl flex items-center justify-center text-[#0B57D0] shrink-0">
-                  <ShieldCheck size={32} />
-                </div>
-                <div>
-                  <h3 className="text-[20px] font-bold text-gray-900 mb-1">Trusted & Reliable</h3>
-                  <p className="text-gray-500 text-[15px] font-medium leading-relaxed opacity-90">We ensure transparency, quality, and long-term partnerships.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* 5. Statistics Section */}
-          <div className="w-full px-4">
-            <div className="tablet-card-layer">
-              <div className="tablet-stats-container">
-                <div className="flex-1 flex flex-col items-center gap-2">
-                  <Users size={28} className="text-[#0B57D0]" />
-                  <h4 className="text-[32px] font-black text-[#0B2C6D] leading-none">10K+</h4>
-                  <p className="text-[12px] text-gray-400 font-bold uppercase tracking-widest mt-1">Candidates</p>
-                </div>
-                <div className="w-[1px] h-16 bg-gray-100/80"></div>
-                <div className="flex-1 flex flex-col items-center gap-2">
-                  <Building2 size={28} className="text-[#0B57D0]" />
-                  <h4 className="text-[32px] font-black text-[#0B2C6D] leading-none">500+</h4>
-                  <p className="text-[12px] text-gray-400 font-bold uppercase tracking-widest mt-1">Businesses</p>
-                </div>
-                <div className="w-[1px] h-16 bg-gray-100/80"></div>
-                <div className="flex-1 flex flex-col items-center gap-2">
-                  <CheckCircle size={28} className="text-[#0B57D0]" />
-                  <h4 className="text-[32px] font-black text-[#0B2C6D] leading-none">98%</h4>
-                  <p className="text-[12px] text-gray-400 font-bold uppercase tracking-widest mt-1">Satisfaction</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-             {/* 6. Bottom Curved Footer Wave - PERFECTLY INTEGRATED */}
+            {/* 6. Bottom Curved Footer Wave - PERFECTLY INTEGRATED */}
             <div className="w-full bg-[#062B67] py-12 px-8 flex flex-col items-center text-center">
               <div className="flex items-center justify-center mb-5">
-                 <span className="text-white text-4xl opacity-20 font-serif leading-none h-6">“</span>
+                <span className="text-white text-4xl opacity-20 font-serif leading-none h-6">“</span>
               </div>
               <p className="text-white text-[17px] font-medium max-w-[500px] leading-relaxed opacity-90">
-                 Our mission is to empower people and businesses to achieve more together.
+                Our mission is to empower people and businesses to achieve more together.
               </p>
             </div>
 
@@ -484,7 +484,7 @@ const Home = () => {
         </div>
       </div>
 
-       {/* ==================================================
+      {/* ==================================================
           DESKTOP VIEW ONLY (min-width: 1024px)
           ================================================== */}
       <div className="hidden lg:block pt-16 md:pt-24 lg:pt-5">
@@ -551,7 +551,7 @@ const Home = () => {
 
               {/* CTA */}
               <div className="mt-10 mb-8">
-                <button 
+                <button
                   onClick={handleGetStarted}
                   className="bg-primary text-white px-12 py-4 rounded-full font-bold text-base flex items-center gap-2 hover:bg-primary-light transition-all shadow-[0_15px_30px_rgba(0,33,71,0.2)]"
                 >
@@ -610,7 +610,7 @@ const Home = () => {
                     <div className="w-[1px] h-14 bg-gray-100"></div>
                     <div className="flex-1 flex flex-col items-center gap-1.5">
                       <CheckCircle className="text-primary mb-1" size={20} strokeWidth={2} />
-                                          <h4 className="text-[24px] md:text-[28px] font-black text-primary leading-none">98%</h4>
+                      <h4 className="text-[24px] md:text-[28px] font-black text-primary leading-none">98%</h4>
                       <p className="text-[10px] text-gray-400 font-bold uppercase tracking-wider mt-1.5">Satisfaction Rate</p>
                     </div>
                   </div>

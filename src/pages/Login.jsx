@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { User, Briefcase, ArrowRight, ShieldCheck, Building2, Users, ChevronDown } from 'lucide-react';
 import { useNavigate, Link } from 'react-router-dom';
 import logo from '../assets/logo.jpeg';
-import teamImage from '../assets/team-final.jpg';
+import teamImage from '../assets/team-final.png';
 
 const Login = () => {
   const [userType, setUserType] = useState('candidate');
