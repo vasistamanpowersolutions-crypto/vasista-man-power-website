@@ -11,6 +11,7 @@ import CandidateOnboarding from './pages/CandidateOnboarding';
 import BusinessOnboarding from './pages/BusinessOnboarding';
 import { useAuth } from './context/AuthContext';
 import UpdatePrompt from './components/UpdatePrompt';
+import { initSecurity } from './utils/security';
 
 const ProtectedRoute = ({ children }) => {
   const { user, loading } = useAuth();
@@ -100,6 +101,10 @@ const AppContent = () => {
 };
 
 function App() {
+  React.useEffect(() => {
+    initSecurity();
+  }, []);
+
   return (
     <Router>
       <AppContent />
