@@ -27,7 +27,7 @@ const Login = () => {
 
       // 1. Check if number exists and its role
       const checkResponse = await fetch(`${import.meta.env.VITE_API_URL}/auth/check-role/${encodeURIComponent(fullPhone)}`);
-      
+
       if (!checkResponse.ok) {
         const errorText = await checkResponse.text();
         console.error('API Error Response:', errorText);
@@ -686,7 +686,7 @@ const Login = () => {
                   <div className="h-px flex-1 bg-gray-100"></div>
                 </div>
 
-                <button className="tablet-google-btn active:scale-[0.97] transition-transform">
+                {/* <button className="tablet-google-btn active:scale-[0.97] transition-transform">
                   <div className="flex items-center gap-3.5">
                     <svg className="w-6 h-6" viewBox="0 0 24 24">
                       <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4" />
@@ -697,7 +697,7 @@ const Login = () => {
                     <span className="font-bold text-[#374151] text-[16px]">Continue with Google</span>
                   </div>
                   <span className="text-[11px] text-gray-400 font-bold uppercase tracking-widest mt-1">(Business Owner Only)</span>
-                </button>
+                </button> */}
 
                 <p className="text-center mt-10 text-[13px] text-gray-400 font-medium">
                   By continuing, you agree to our <a href="#" className="font-bold text-[#062b66] hover:underline">Terms & Conditions</a>
@@ -865,7 +865,7 @@ const Login = () => {
           </div>
 
           {/* Google Login Button */}
-          <button className="w-full bg-white border border-[#e5e7eb] h-[64px] rounded-lg flex flex-col items-center justify-center transition-all hover:bg-gray-50 shadow-[0_2px_6px_rgba(0,0,0,0.02)]">
+          {/* <button className="w-full bg-white border border-[#e5e7eb] h-[64px] rounded-lg flex flex-col items-center justify-center transition-all hover:bg-gray-50 shadow-[0_2px_6px_rgba(0,0,0,0.02)]">
             <div className="flex items-center gap-3">
               <svg className="w-[18px] h-[18px]" viewBox="0 0 24 24">
                 <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4" />
@@ -876,7 +876,7 @@ const Login = () => {
               <span className="font-bold text-[#374151] text-[14px]">Continue with Google</span>
             </div>
             <span className="text-[10px] text-[#9ca3af] font-medium mt-0.5">(BUSINESS OWNER ONLY)</span>
-          </button>
+          </button> */}
 
           {/* Bottom Right Dot Pattern */}
           <div className="absolute bottom-8 right-8 w-12 h-12 opacity-40 pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle, #FFD700 2px, transparent 0)', backgroundSize: '10px 10px' }}></div>

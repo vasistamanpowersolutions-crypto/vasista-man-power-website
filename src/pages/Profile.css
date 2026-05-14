@@ -123,6 +123,11 @@
   color: #f29727;
 }
 
+.badge-kyc-progress {
+  background: #e6f7ff;
+  color: #1890ff;
+}
+
 .badge-status-available {
   background: #f0f4ff;
   color: #002147;
@@ -144,6 +149,7 @@
   gap: 10px;
   border: 1px solid #ffccc7;
   transition: all 0.3s ease;
+  cursor: pointer;
 }
 
 .logout-button:hover {
@@ -172,6 +178,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
+  cursor: pointer;
 }
 
 .profile-tab-btn:hover {
@@ -461,6 +468,7 @@
   border: 1px solid #e2e8f0;
   color: #475569;
   transition: all 0.2s ease;
+  cursor: pointer;
 }
 
 .doc-action-btn:hover {
@@ -559,6 +567,7 @@
     padding: 8px !important;
     flex: 1 !important;
     transition: all 0.3s ease !important;
+    cursor: pointer !important;
   }
 
   .mobile-nav-btn span {
