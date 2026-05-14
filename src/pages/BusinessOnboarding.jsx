@@ -23,6 +23,9 @@ const BusinessOnboarding = () => {
     ownerName: '',
     email: '',
     address: '',
+    city: '',
+    state: '',
+    wantedJobRoles: '',
     docType: 'GST'
   });
 
@@ -121,11 +124,21 @@ const BusinessOnboarding = () => {
                 <label className="text-sm font-bold text-gray-700">Business Front Photo</label>
                 <div className="relative">
                   <input type="file" name="businessFrontUrl" onChange={handleImageChange} className="hidden" id="businessFront" />
-                  <label htmlFor="businessFront" className="flex items-center justify-center gap-2 w-full h-12 px-4 rounded-xl border-2 border-dashed border-gray-200 cursor-pointer hover:bg-gray-50 transition-all">
-                    {images.businessFrontUrl ? <Check className="text-green-500" size={18} /> : <Upload size={18} />}
-                    <span className="text-sm font-medium text-gray-600">Upload Business Front</span>
+                  <label htmlFor="businessFront" className="flex items-center justify-center gap-2 w-full h-32 px-4 rounded-xl border-2 border-dashed border-gray-200 cursor-pointer hover:bg-gray-50 transition-all overflow-hidden bg-gray-50">
+                    {images.businessFrontUrl ? (
+                      <img src={images.businessFrontUrl} alt="Preview" className="w-full h-full object-cover" />
+                    ) : (
+                      <div className="flex flex-col items-center gap-2">
+                        <Upload size={24} className="text-gray-400" />
+                        <span className="text-sm font-medium text-gray-500">Upload Business Front</span>
+                      </div>
+                    )}
                   </label>
                 </div>
+              </div>
+              <div className="space-y-2 md:col-span-2">
+                <label className="text-sm font-bold text-gray-700">Wanted Job Roles (Comma separated) *</label>
+                <textarea required name="wantedJobRoles" value={formData.wantedJobRoles} onChange={handleInputChange} rows="2" className="w-full p-4 rounded-xl border border-gray-200 focus:border-[#0a46d8] outline-none transition-all resize-none" placeholder="e.g. Security Guard, Housekeeping, Delivery Boy"></textarea>
               </div>
             </div>
           </section>
@@ -136,9 +149,21 @@ const BusinessOnboarding = () => {
               <MapPin size={20} />
               <h2 className="text-xl font-bold">Address</h2>
             </div>
-            <div className="space-y-2">
-              <label className="text-sm font-bold text-gray-700">Full Address</label>
-              <textarea name="address" value={formData.address} onChange={handleInputChange} rows="3" className="w-full p-4 rounded-xl border border-gray-200 focus:border-[#0a46d8] outline-none transition-all resize-none" placeholder="Enter business address"></textarea>
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <label className="text-sm font-bold text-gray-700">Full Address</label>
+                <textarea name="address" value={formData.address} onChange={handleInputChange} rows="3" className="w-full p-4 rounded-xl border border-gray-200 focus:border-[#0a46d8] outline-none transition-all resize-none" placeholder="Enter business address"></textarea>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="space-y-2">
+                  <label className="text-sm font-bold text-gray-700">City *</label>
+                  <input required name="city" value={formData.city} onChange={handleInputChange} className="w-full h-12 px-4 rounded-xl border border-gray-200 focus:border-[#0a46d8] outline-none transition-all" placeholder="Enter city" />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-sm font-bold text-gray-700">State *</label>
+                  <input required name="state" value={formData.state} onChange={handleInputChange} className="w-full h-12 px-4 rounded-xl border border-gray-200 focus:border-[#0a46d8] outline-none transition-all" placeholder="Enter state" />
+                </div>
+              </div>
             </div>
           </section>
 
@@ -161,9 +186,15 @@ const BusinessOnboarding = () => {
               <div className="space-y-2">
                 <label className="text-sm font-bold text-gray-700">Document Image</label>
                 <input type="file" name="docImageUrl" onChange={handleImageChange} className="hidden" id="docImage" />
-                <label htmlFor="docImage" className="flex items-center justify-center gap-2 w-full h-12 px-4 rounded-xl border-2 border-dashed border-gray-200 cursor-pointer hover:bg-gray-50 transition-all">
-                  {images.docImageUrl ? <Check className="text-green-500" size={18} /> : <Upload size={18} />}
-                  <span className="text-sm font-medium text-gray-600">Upload Document</span>
+                <label htmlFor="docImage" className="flex items-center justify-center gap-2 w-full h-32 px-4 rounded-xl border-2 border-dashed border-gray-200 cursor-pointer hover:bg-gray-50 transition-all overflow-hidden bg-gray-50">
+                  {images.docImageUrl ? (
+                    <img src={images.docImageUrl} alt="Preview" className="w-full h-full object-cover" />
+                  ) : (
+                    <div className="flex flex-col items-center gap-2">
+                      <Upload size={24} className="text-gray-400" />
+                      <span className="text-sm font-medium text-gray-500">Upload Document</span>
+                    </div>
+                  )}
                 </label>
               </div>
             </div>

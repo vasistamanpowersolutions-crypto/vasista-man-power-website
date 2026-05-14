@@ -225,6 +225,7 @@ const Profile = () => {
             <div className="info-data-row"><span className="info-data-label">Owner Name</span><span className="info-data-value">{user.ownerName}</span></div>
             <div className="info-data-row"><span className="info-data-label">Mobile</span><span className="info-data-value">{user.mobileNumber}</span></div>
             <div className="info-data-row"><span className="info-data-label">Email</span><span className="info-data-value">{user.email || 'N/A'}</span></div>
+            <div className="info-data-row"><span className="info-data-label">Wanted Roles</span><span className="info-data-value">{user.wantedJobRoles || 'N/A'}</span></div>
           </div>
 
           <div className="info-card-section">
