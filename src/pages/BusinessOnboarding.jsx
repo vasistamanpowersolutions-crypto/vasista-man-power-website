@@ -51,6 +51,12 @@ const BusinessOnboarding = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    if (!images.businessFrontUrl) {
+      setError('Please upload a business front photo.');
+      return;
+    }
+
     setLoading(true);
     setError('');
 
@@ -121,10 +127,10 @@ const BusinessOnboarding = () => {
                 </div>
               </div>
               <div className="space-y-2">
-                <label className="text-sm font-bold text-gray-700">Business Front Photo</label>
+                <label className="text-sm font-bold text-gray-700">Business Front Photo *</label>
                 <div className="relative">
                   <input type="file" name="businessFrontUrl" onChange={handleImageChange} className="hidden" id="businessFront" />
-                  <label htmlFor="businessFront" className="flex items-center justify-center gap-2 w-full h-32 px-4 rounded-xl border-2 border-dashed border-gray-200 cursor-pointer hover:bg-gray-50 transition-all overflow-hidden bg-gray-50">
+                  <label htmlFor="businessFront" className={`flex items-center justify-center gap-2 w-full h-32 px-4 rounded-xl border-2 border-dashed ${!images.businessFrontUrl && error.includes('photo') ? 'border-red-300 bg-red-50/30' : 'border-gray-200 bg-gray-50'} cursor-pointer hover:bg-gray-50 transition-all overflow-hidden`}>
                     {images.businessFrontUrl ? (
                       <img src={images.businessFrontUrl} alt="Preview" className="w-full h-full object-cover" />
                     ) : (
