@@ -1,13 +1,222 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { User, MapPin, Briefcase, Shield, Phone, Upload, Check } from 'lucide-react';
+import { User, MapPin, Briefcase, Shield, Phone, Upload, Check, ChevronDown, Search, X } from 'lucide-react';
+import { State, City } from 'country-state-city';
+import { geoData } from '../utils/geoData';
+
+// Custom searchable dropdown component for single-select
+const CustomDropdown = ({
+  options = [],
+  value = '',
+  onChange,
+  placeholder = 'Select option',
+  disabled = false,
+  required = false,
+  label = '',
+  showOthers = false
+}) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [search, setSearch] = useState('');
+  const dropdownRef = React.useRef(null);
+
+  React.useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  let filteredOptions = options.filter(option =>
+    option.toLowerCase().includes(search.toLowerCase())
+  );
+
+  if (showOthers) {
+    const hasOthers = filteredOptions.some(opt => opt.toLowerCase() === 'others');
+    if (!hasOthers) {
+      if (!search || 'others'.includes(search.toLowerCase()) || filteredOptions.length === 0) {
+        filteredOptions = [...filteredOptions, 'Others'];
+      }
+    }
+  }
+
+  const handleSelect = (option) => {
+    onChange(option);
+    setIsOpen(false);
+    setSearch('');
+  };
+
+  return (
+    <div className="relative space-y-2 w-full text-left" ref={dropdownRef}>
+      {label && (
+        <label className="text-sm font-bold text-gray-700 block">
+          {label} {required && <span className="text-red-500">*</span>}
+        </label>
+      )}
+      <div
+        onClick={() => !disabled && setIsOpen(!isOpen)}
+        className={`w-full h-12 px-4 rounded-xl border flex items-center justify-between cursor-pointer transition-all bg-white ${
+          disabled ? 'bg-gray-50 border-gray-100 text-gray-400 cursor-not-allowed' : 'border-gray-200 focus-within:border-[#0a46d8] hover:border-gray-300'
+        }`}
+      >
+        <span className={value ? 'text-gray-900 font-medium' : 'text-gray-400'}>
+          {value || placeholder}
+        </span>
+        <ChevronDown size={18} className={`text-gray-400 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
+      </div>
+
+      {isOpen && !disabled && (
+        <div className="absolute z-50 w-full mt-1 bg-white rounded-xl border border-gray-100 shadow-xl max-h-60 overflow-hidden flex flex-col">
+          <div className="p-2 border-b border-gray-50 flex items-center gap-2 bg-gray-50/50">
+            <Search size={16} className="text-gray-400 shrink-0" />
+            <input
+              type="text"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder="Search..."
+              className="w-full bg-transparent outline-none text-sm text-gray-700 placeholder-gray-400"
+              onClick={(e) => e.stopPropagation()}
+            />
+          </div>
+          <div className="overflow-y-auto flex-1 max-h-48 scrollbar-thin">
+            {filteredOptions.length > 0 ? (
+              filteredOptions.map((option, idx) => (
+                <div
+                  key={idx}
+                  onClick={() => handleSelect(option)}
+                  className={`px-4 py-3 text-sm cursor-pointer transition-all hover:bg-gray-50 ${
+                    value === option ? 'bg-blue-50/50 text-[#0a46d8] font-semibold' : 'text-gray-700'
+                  }`}
+                >
+                  {option}
+                </div>
+              ))
+            ) : (
+              <div className="px-4 py-3 text-sm text-gray-400 text-center">
+                No options found
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+// Custom searchable dropdown component for multi-select
+const CustomMultiSelectDropdown = ({
+  options = [],
+  selectedValues = [],
+  onChange,
+  placeholder = 'Select options',
+  label = '',
+  required = false
+}) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [search, setSearch] = useState('');
+  const dropdownRef = React.useRef(null);
+
+  React.useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  const filteredOptions = options.filter(option =>
+    option.toLowerCase().includes(search.toLowerCase())
+  );
+
+  const toggleOption = (option) => {
+    let newSelected;
+    if (selectedValues.includes(option)) {
+      newSelected = selectedValues.filter(val => val !== option);
+    } else {
+      newSelected = [...selectedValues, option];
+    }
+    onChange(newSelected);
+  };
+
+  return (
+    <div className="relative space-y-2 w-full text-left" ref={dropdownRef}>
+      {label && (
+        <label className="text-sm font-bold text-gray-700 block">
+          {label} {required && <span className="text-red-500">*</span>}
+        </label>
+      )}
+      <div
+        onClick={() => setIsOpen(!isOpen)}
+        className="w-full min-h-[48px] py-2 px-4 rounded-xl border border-gray-200 flex items-center justify-between cursor-pointer transition-all bg-white focus-within:border-[#0a46d8] hover:border-gray-300"
+      >
+        <span className={selectedValues.length > 0 ? 'text-gray-900 font-medium' : 'text-gray-400'}>
+          {selectedValues.length > 0
+            ? `${selectedValues.length} selected`
+            : placeholder
+          }
+        </span>
+        <ChevronDown size={18} className={`text-gray-400 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
+      </div>
+
+      {isOpen && (
+        <div className="absolute z-50 w-full mt-1 bg-white rounded-xl border border-gray-100 shadow-xl max-h-60 overflow-hidden flex flex-col">
+          <div className="p-2 border-b border-gray-50 flex items-center gap-2 bg-gray-50/50">
+            <Search size={16} className="text-gray-400 shrink-0" />
+            <input
+              type="text"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder="Search..."
+              className="w-full bg-transparent outline-none text-sm text-gray-700 placeholder-gray-400"
+              onClick={(e) => e.stopPropagation()}
+            />
+          </div>
+          <div className="overflow-y-auto flex-1 max-h-48 scrollbar-thin">
+            {filteredOptions.length > 0 ? (
+              filteredOptions.map((option, idx) => {
+                const isSelected = selectedValues.includes(option);
+                return (
+                  <div
+                    key={idx}
+                    onClick={() => toggleOption(option)}
+                    className="px-4 py-3 text-sm cursor-pointer transition-all hover:bg-gray-50 flex items-center gap-3"
+                  >
+                    <input
+                      type="checkbox"
+                      checked={isSelected}
+                      readOnly
+                      className="rounded text-[#0a46d8] border-gray-300 focus:ring-[#0a46d8]"
+                    />
+                    <span className={isSelected ? 'text-[#0a46d8] font-semibold' : 'text-gray-700'}>
+                      {option}
+                    </span>
+                  </div>
+                );
+              })
+            ) : (
+              <div className="px-4 py-3 text-sm text-gray-400 text-center">
+                No options found
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
 
 const CandidateOnboarding = () => {
   const { user, login, logout } = useAuth();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [jobRoles, setJobRoles] = useState([]);
+  const [selectedJobTitles, setSelectedJobTitles] = useState([]);
 
   // Critical: If token is "undefined" (string) or missing, force logout and re-login
   React.useEffect(() => {
@@ -17,7 +226,60 @@ const CandidateOnboarding = () => {
       navigate('/login');
     }
   }, [user, logout, navigate]);
+
+  // Fetch job roles from database
+  React.useEffect(() => {
+    const fetchJobRoles = async () => {
+      try {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/collection/job-roles`);
+        if (response.ok) {
+          const data = await response.json();
+          setJobRoles(data.map(role => role.title));
+        } else {
+          throw new Error('Failed to fetch job roles');
+        }
+      } catch (err) {
+        console.error('Error fetching job roles, using fallbacks:', err);
+        setJobRoles([
+          'Mason', 'Welder', 'Electrician', 'Plumber', 'Carpenter', 'Helper',
+          'Driver', 'Cook', 'Security Guard', 'Housekeeper', 'Delivery Boy',
+          'Sales Executive', 'Receptionist', 'Office Assistant', 'Accountant',
+          'Supervisor', 'Tailor', 'Painter', 'Fitter', 'Gardener', 'Caregiver'
+        ]);
+      }
+    };
+    fetchJobRoles();
+  }, []);
   
+  // Get states from npm package
+  const statesList = State.getStatesOfCountry("IN").map(s => s.name);
+
+  // Resolve districts from static local geoData
+  const getDistrictsList = () => {
+    if (!formData.state) return [];
+    let lookupName = formData.state;
+    if (lookupName === 'Jammu and Kashmir') lookupName = 'Jammu & Kashmir';
+    return Object.keys(geoData[lookupName] || {});
+  };
+
+  // Resolve cities from package + local geoData
+  const getCitiesList = () => {
+    if (!formData.state) return [];
+    const selectedStateObj = State.getStatesOfCountry("IN").find(s => {
+      const n1 = s.name.toLowerCase().replace(/and/g, '&');
+      const n2 = formData.state?.toLowerCase().replace(/and/g, '&');
+      return n1 === n2 || s.name === formData.state;
+    });
+    const stateCode = selectedStateObj ? selectedStateObj.isoCode : "";
+    const packageCities = stateCode ? City.getCitiesOfState("IN", stateCode).map(c => c.name) : [];
+    
+    let lookupName = formData.state;
+    if (lookupName === 'Jammu and Kashmir') lookupName = 'Jammu & Kashmir';
+    const localCities = (formData.district && geoData[lookupName]?.[formData.district]) || [];
+    
+    return Array.from(new Set([...localCities, ...packageCities]));
+  };
+
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -31,6 +293,7 @@ const CandidateOnboarding = () => {
     fatherMobileNumber: '',
     address: '',
     city: '',
+    district: '',
     state: ''
   });
 
@@ -38,10 +301,27 @@ const CandidateOnboarding = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const handleJobTitlesChange = (titles) => {
+    setSelectedJobTitles(titles);
+    setFormData(prev => ({ ...prev, wantedJobTitle: titles.join(', ') }));
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError('');
+
+    if (!formData.wantedJobTitle) {
+      setError('Please select at least one Wanted Job Title.');
+      setLoading(false);
+      return;
+    }
+
+    if (!formData.state || !formData.district || !formData.city) {
+      setError('Please select State, District, and City.');
+      setLoading(false);
+      return;
+    }
 
     try {
       const payload = {
@@ -148,8 +428,35 @@ const CandidateOnboarding = () => {
 
             <div className="grid grid-cols-1 gap-6 mt-6">
               <div className="space-y-2">
-                <label className="text-sm font-bold text-gray-700">Wanted Job Title (Comma separated) *</label>
-                <textarea required name="wantedJobTitle" value={formData.wantedJobTitle} onChange={handleInputChange} className="w-full p-4 rounded-xl border border-gray-200 focus:border-[#0a46d8] outline-none transition-all" placeholder="e.g. Driver, Cook, Security Guard" rows="2" />
+                <CustomMultiSelectDropdown
+                  label="Wanted Job Title"
+                  required
+                  placeholder="Search and select job titles"
+                  options={jobRoles}
+                  selectedValues={selectedJobTitles}
+                  onChange={handleJobTitlesChange}
+                />
+                
+                {/* Selected Job Titles displayed below */}
+                {selectedJobTitles.length > 0 && (
+                  <div className="flex flex-wrap gap-2 mt-3 p-3 bg-gray-50 rounded-xl border border-gray-100">
+                    {selectedJobTitles.map((title) => (
+                      <span key={title} className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-blue-50 text-[#0a46d8] text-sm font-semibold border border-blue-100 animate-fadeIn">
+                        {title}
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const updated = selectedJobTitles.filter((t) => t !== title);
+                            handleJobTitlesChange(updated);
+                          }}
+                          className="hover:text-red-500 focus:outline-none transition-colors"
+                        >
+                          <X size={14} />
+                        </button>
+                      </span>
+                    ))}
+                  </div>
+                )}
               </div>
               <div className="space-y-2">
                 <label className="text-sm font-bold text-gray-700">Skills (Comma separated) *</label>
@@ -183,19 +490,49 @@ const CandidateOnboarding = () => {
               <h2 className="text-xl font-bold">Address Details</h2>
             </div>
             <div className="space-y-6">
-              <div className="space-y-2">
-                <label className="text-sm font-bold text-gray-700">Full Address *</label>
-                <textarea required name="address" value={formData.address} onChange={handleInputChange} className="w-full p-4 rounded-xl border border-gray-200 focus:border-[#0a46d8] outline-none transition-all" placeholder="Enter full address" rows="2" />
+              {/* Dynamic Cascading Dropdowns */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  <CustomDropdown
+                  label="State"
+                  required
+                  options={statesList}
+                  value={formData.state}
+                  onChange={(val) => {
+                    setFormData(prev => ({ ...prev, state: val, district: '', city: '' }));
+                  }}
+                  placeholder="Select State"
+                  showOthers={true}
+                />
+                <CustomDropdown
+                  label="District"
+                  required
+                  disabled={!formData.state}
+                  options={formData.state && formData.state !== 'Others' ? getDistrictsList() : []}
+                  value={formData.district}
+                  onChange={(val) => {
+                    setFormData(prev => ({ ...prev, district: val, city: '' }));
+                  }}
+                  placeholder={formData.state ? "Select District" : "Select State First"}
+                  showOthers={true}
+                />
+                <CustomDropdown
+                  label="City / Town"
+                  required
+                  disabled={!formData.district}
+                  options={formData.district && formData.district !== 'Others' && formData.state !== 'Others' ? getCitiesList() : []}
+                  value={formData.city}
+                  onChange={(val) => {
+                    setFormData(prev => ({ ...prev, city: val }));
+                  }}
+                  placeholder={formData.district ? "Select City / Town" : "Select District First"}
+                  showOthers={true}
+                />
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="space-y-2">
-                  <label className="text-sm font-bold text-gray-700">City *</label>
-                  <input required name="city" value={formData.city} onChange={handleInputChange} className="w-full h-12 px-4 rounded-xl border border-gray-200 focus:border-[#0a46d8] outline-none transition-all" placeholder="City" />
-                </div>
-                <div className="space-y-2">
-                  <label className="text-sm font-bold text-gray-700">State *</label>
-                  <input required name="state" value={formData.state} onChange={handleInputChange} className="w-full h-12 px-4 rounded-xl border border-gray-200 focus:border-[#0a46d8] outline-none transition-all" placeholder="State" />
-                </div>
+
+              {/* Address Line 1 */}
+              <div className="space-y-2">
+                <label className="text-sm font-bold text-gray-700">Address Line 1 *</label>
+                <textarea required name="address" value={formData.address} onChange={handleInputChange} className="w-full p-4 rounded-xl border border-gray-200 focus:border-[#0a46d8] outline-none transition-all" placeholder="Enter House No, Street Name, Area, etc." rows="2" />
               </div>
             </div>
           </section>
