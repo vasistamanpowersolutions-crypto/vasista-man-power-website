@@ -1,7 +1,110 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { Building, User, MapPin, Mail, Upload, Check, Shield } from 'lucide-react';
+import { Building, User, MapPin, Mail, Upload, Check, Shield, ChevronDown, Search } from 'lucide-react';
+import { State, City } from 'country-state-city';
+import { geoData } from '../utils/geoData';
+
+// Custom searchable dropdown component for single-select
+const CustomDropdown = ({
+  options = [],
+  value = '',
+  onChange,
+  placeholder = 'Select option',
+  disabled = false,
+  required = false,
+  label = '',
+  showOthers = false
+}) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [search, setSearch] = useState('');
+  const dropdownRef = React.useRef(null);
+
+  React.useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  let filteredOptions = options.filter(option =>
+    option.toLowerCase().includes(search.toLowerCase())
+  );
+
+  if (showOthers) {
+    const hasOthers = filteredOptions.some(opt => opt.toLowerCase() === 'others');
+    if (!hasOthers) {
+      if (!search || 'others'.includes(search.toLowerCase()) || filteredOptions.length === 0) {
+        filteredOptions = [...filteredOptions, 'Others'];
+      }
+    }
+  }
+
+  const handleSelect = (option) => {
+    onChange(option);
+    setIsOpen(false);
+    setSearch('');
+  };
+
+  return (
+    <div className="relative space-y-2 w-full text-left" ref={dropdownRef}>
+      {label && (
+        <label className="text-sm font-bold text-gray-700 block">
+          {label} {required && <span className="text-red-500">*</span>}
+        </label>
+      )}
+      <div
+        onClick={() => !disabled && setIsOpen(!isOpen)}
+        className={`w-full h-12 px-4 rounded-xl border flex items-center justify-between cursor-pointer transition-all bg-white ${
+          disabled ? 'bg-gray-50 border-gray-100 text-gray-400 cursor-not-allowed' : 'border-gray-200 focus-within:border-[#0a46d8] hover:border-gray-300'
+        }`}
+      >
+        <span className={value ? 'text-gray-900 font-medium' : 'text-gray-400'}>
+          {value || placeholder}
+        </span>
+        <ChevronDown size={18} className={`text-gray-400 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
+      </div>
+
+      {isOpen && !disabled && (
+        <div className="absolute z-50 w-full mt-1 bg-white rounded-xl border border-gray-100 shadow-xl max-h-60 overflow-hidden flex flex-col">
+          <div className="p-2 border-b border-gray-50 flex items-center gap-2 bg-gray-50/50">
+            <Search size={16} className="text-gray-400 shrink-0" />
+            <input
+              type="text"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder="Search..."
+              className="w-full bg-transparent outline-none text-sm text-gray-700 placeholder-gray-400"
+              onClick={(e) => e.stopPropagation()}
+            />
+          </div>
+          <div className="overflow-y-auto flex-1 max-h-48 scrollbar-thin">
+            {filteredOptions.length > 0 ? (
+              filteredOptions.map((option, idx) => (
+                <div
+                  key={idx}
+                  onClick={() => handleSelect(option)}
+                  className={`px-4 py-3 text-sm cursor-pointer transition-all hover:bg-gray-50 ${
+                    value === option ? 'bg-blue-50/50 text-[#0a46d8] font-semibold' : 'text-gray-700'
+                  }`}
+                >
+                  {option}
+                </div>
+              ))
+            ) : (
+              <div className="px-4 py-3 text-sm text-gray-400 text-center">
+                No options found
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
 
 const BusinessOnboarding = () => {
   const { user, login, logout } = useAuth();
@@ -24,10 +127,40 @@ const BusinessOnboarding = () => {
     email: '',
     address: '',
     city: '',
+    district: '',
     state: '',
     wantedJobRoles: '',
     docType: 'GST'
   });
+
+  // Get states from npm package
+  const statesList = State.getStatesOfCountry("IN").map(s => s.name);
+
+  // Resolve districts from static local geoData
+  const getDistrictsList = () => {
+    if (!formData.state) return [];
+    let lookupName = formData.state;
+    if (lookupName === 'Jammu and Kashmir') lookupName = 'Jammu & Kashmir';
+    return Object.keys(geoData[lookupName] || {});
+  };
+
+  // Resolve cities from package + local geoData
+  const getCitiesList = () => {
+    if (!formData.state) return [];
+    const selectedStateObj = State.getStatesOfCountry("IN").find(s => {
+      const n1 = s.name.toLowerCase().replace(/and/g, '&');
+      const n2 = formData.state?.toLowerCase().replace(/and/g, '&');
+      return n1 === n2 || s.name === formData.state;
+    });
+    const stateCode = selectedStateObj ? selectedStateObj.isoCode : "";
+    const packageCities = stateCode ? City.getCitiesOfState("IN", stateCode).map(c => c.name) : [];
+    
+    let lookupName = formData.state;
+    if (lookupName === 'Jammu and Kashmir') lookupName = 'Jammu & Kashmir';
+    const localCities = (formData.district && geoData[lookupName]?.[formData.district]) || [];
+    
+    return Array.from(new Set([...localCities, ...packageCities]));
+  };
 
   const [images, setImages] = useState({
     docImageUrl: null,
@@ -160,15 +293,42 @@ const BusinessOnboarding = () => {
                 <label className="text-sm font-bold text-gray-700">Full Address</label>
                 <textarea name="address" value={formData.address} onChange={handleInputChange} rows="3" className="w-full p-4 rounded-xl border border-gray-200 focus:border-[#0a46d8] outline-none transition-all resize-none" placeholder="Enter business address"></textarea>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="space-y-2">
-                  <label className="text-sm font-bold text-gray-700">City *</label>
-                  <input required name="city" value={formData.city} onChange={handleInputChange} className="w-full h-12 px-4 rounded-xl border border-gray-200 focus:border-[#0a46d8] outline-none transition-all" placeholder="Enter city" />
-                </div>
-                <div className="space-y-2">
-                  <label className="text-sm font-bold text-gray-700">State *</label>
-                  <input required name="state" value={formData.state} onChange={handleInputChange} className="w-full h-12 px-4 rounded-xl border border-gray-200 focus:border-[#0a46d8] outline-none transition-all" placeholder="Enter state" />
-                </div>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <CustomDropdown
+                  label="State"
+                  required
+                  options={statesList}
+                  value={formData.state}
+                  onChange={(val) => {
+                    setFormData(prev => ({ ...prev, state: val, district: '', city: '' }));
+                  }}
+                  placeholder="Select State"
+                  showOthers={true}
+                />
+                <CustomDropdown
+                  label="District"
+                  required
+                  disabled={!formData.state}
+                  options={formData.state && formData.state !== 'Others' ? getDistrictsList() : []}
+                  value={formData.district}
+                  onChange={(val) => {
+                    setFormData(prev => ({ ...prev, district: val, city: '' }));
+                  }}
+                  placeholder={formData.state ? "Select District" : "Select State First"}
+                  showOthers={true}
+                />
+                <CustomDropdown
+                  label="City / Town"
+                  required
+                  disabled={!formData.district}
+                  options={formData.district && formData.district !== 'Others' && formData.state !== 'Others' ? getCitiesList() : []}
+                  value={formData.city}
+                  onChange={(val) => {
+                    setFormData(prev => ({ ...prev, city: val }));
+                  }}
+                  placeholder={formData.district ? "Select City / Town" : "Select District First"}
+                  showOthers={true}
+                />
               </div>
             </div>
           </section>

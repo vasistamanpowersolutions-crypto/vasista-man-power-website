@@ -234,6 +234,7 @@ const Profile = () => {
               <MapPin size={20} /> Location Details
             </div>
             <div className="info-data-row"><span className="info-data-label">City</span><span className="info-data-value">{user.city}</span></div>
+            {user.district && <div className="info-data-row"><span className="info-data-label">District</span><span className="info-data-value">{user.district}</span></div>}
             <div className="info-data-row"><span className="info-data-label">State</span><span className="info-data-value">{user.state}</span></div>
             <div className="info-data-row"><span className="info-data-label">Address</span><span className="info-data-value">{user.address}</span></div>
           </div>
