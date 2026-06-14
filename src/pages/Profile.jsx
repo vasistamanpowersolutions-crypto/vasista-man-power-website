@@ -172,6 +172,7 @@ const Profile = () => {
               <User size={20} /> Personal Information
             </div>
             <div className="info-data-row"><span className="info-data-label">Full Name</span><span className="info-data-value">{user.firstName} {user.lastName}</span></div>
+            <div className="info-data-row"><span className="info-data-label">Date of Birth</span><span className="info-data-value">{user.dob ? new Date(user.dob).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }) : 'N/A'}</span></div>
             <div className="info-data-row"><span className="info-data-label">Mobile</span><span className="info-data-value">{user.mobileNumber}</span></div>
             <div className="info-data-row"><span className="info-data-label">Father's Name</span><span className="info-data-value">{user.fatherName || 'N/A'}</span></div>
             <div className="info-data-row"><span className="info-data-label">Father's Mobile</span><span className="info-data-value">{user.fatherMobileNumber || 'N/A'}</span></div>

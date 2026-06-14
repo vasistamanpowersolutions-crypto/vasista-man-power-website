@@ -283,6 +283,7 @@ const CandidateOnboarding = () => {
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
+    dob: '',
     type: 'Full-time', // Part-time or Full-time
     experienceLevel: 'Fresher', // Fresher or Experienced
     previousJobTitle: '',
@@ -310,6 +311,12 @@ const CandidateOnboarding = () => {
     e.preventDefault();
     setLoading(true);
     setError('');
+
+    if (!formData.dob) {
+      setError('Please enter your Date of Birth.');
+      setLoading(false);
+      return;
+    }
 
     if (!formData.wantedJobTitle) {
       setError('Please select at least one Wanted Job Title.');
@@ -382,6 +389,10 @@ const CandidateOnboarding = () => {
               <div className="space-y-2">
                 <label className="text-sm font-bold text-gray-700">Last Name *</label>
                 <input required name="lastName" value={formData.lastName} onChange={handleInputChange} className="w-full h-12 px-4 rounded-xl border border-gray-200 focus:border-[#0a46d8] outline-none transition-all" placeholder="Enter last name" />
+              </div>
+              <div className="space-y-2">
+                <label className="text-sm font-bold text-gray-700">Date of Birth *</label>
+                <input required type="date" name="dob" value={formData.dob} onChange={handleInputChange} className="w-full h-12 px-4 rounded-xl border border-gray-200 focus:border-[#0a46d8] outline-none transition-all" />
               </div>
               <div className="space-y-2">
                 <label className="text-sm font-bold text-gray-700">Mobile Number</label>
